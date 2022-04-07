@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Task_2</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <button class="login">Login</button>
+      <button class="registation">Registation</button>
+    </div> 
+    <form class="modal-window modal-window__login">
+      <h3>Form for logging</h3>
+      <div class="modal-window__input">
+        <label class="input-label" for="email">Email: </label>
+        <input class="email" type='text' name="email" placeholder="Enter email" required/>
+      </div>
+      <div class="modal-window__input">
+        <label class="input-label" for="password">Password: </label>
+        <input class="password" type='password' name="password" placeholder="Enter password" required/>
+      </div>
+      <button>Submit</button>
+    </form>
+    <form class="modal-window modal-window__registration">
+      <h3>Form for registration</h3>
+      <div class="modal-window__input">
+        <label class="input-label"for="email">Email: </label>
+        <input class="email" type='text' name="email" placeholder="Enter email" required/>
+      </div>
+      <div class="modal-window__input">
+        <label class="input-label" for="password">Password: </label>
+        <input class="password" type='password' name="password" placeholder="Enter password" required/>
+      </div>
+      <div class="modal-window__input">
+        <label class="input-label" for="password">Confirm password: </label>
+        <input class="password" type='password' name="password" placeholder="Enter password" required/>
+      </div>
+      <button>Submit</button>
+    </form>
+  </div>
+  <script defer src="./index.js"></script>
+</body>
+</html>
