@@ -1,0 +1,35 @@
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.column {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex: 1 1 auto;
+}
+
+.column3 {
+  flex-grow: 1;
+  display: flex;
+}
+
+header, footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.column__first {
+  background-color: #ffff86;
+}
+
+.column__second {
+  background-color: #addfad;
+}
+
+.column__third {
+  background-color: #74c974;
+}

@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  position:absolute;
+}
+
+header, footer {
+  font-size: 20px;
+  padding: 10px;
+  height: 100px; 
+  box-sizing: border-box;
+  text-align: center;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  background-color: #f5d3f8;
+}
+
+footer {
+  background-color: #beffbb;
+}
+
+.column {
+  margin-top: 100px;
+}
+
+.column div {
+  padding: 10px;
+  box-sizing: border-box;
+}
