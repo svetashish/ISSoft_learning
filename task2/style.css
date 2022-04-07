@@ -34,36 +34,3 @@ input {
   padding: 10px;
   width: 70%;
 }
-
-
-.modal-window {
-  border: 3px solid rgb(118, 118, 118);
-  flex-direction: column;
-  height: 400px;
-  width: 400px;
-  align-items: center;
-  justify-content: space-around;
-  margin: 200px auto;
-  z-index: 500;
-  background-color: aliceblue;
-  border-radius: 10px;
-}
-
-.modal-window__login,
-.modal-window__registration {
-  display: none;
-}
-
-.modal-window__input {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 90%;
-}
-
-.input-label {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1;
-  width: 20%;
-}
