@@ -1,0 +1,59 @@
+.column div {
+ display: inline-block;
+ vertical-align: top;
+ box-sizing: border-box;
+ margin-right: -4px;
+}
+
+.column, .column2, .column3  {
+  float: left;
+  width: 100%; 
+  min-height: calc(100vh - 200px);
+}
+
+.column, .column2 {
+  position:relative; 
+  right:33.333%;
+}
+
+.column3 {
+  overflow: hidden;
+  position: relative;
+  background: #89ffa2;
+}
+.column2 {
+  background: #ffa7a7;
+}
+
+.column {
+  background: #fff689;
+}
+
+.column__first {
+  float: left;
+  width: 29.33%;
+  position: relative;
+  left: 68.67%;
+  overflow: hidden
+}
+
+.column__second {
+  float: left;
+  width: 29.33%;
+  position: relative;
+  left: 72.67%;
+  overflow: hidden;
+}
+
+.column__third {
+  float: left;
+  width: 29.33%;
+  position: relative;
+  left: 76.67%;
+  overflow: hidden;
+}
+
+footer, header {
+  clear: left;
+  z-index: 200;
+}
