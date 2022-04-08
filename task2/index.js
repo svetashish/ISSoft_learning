@@ -3,10 +3,12 @@ let buttonRegistration = document.querySelector('.registation');
 
 let container = document.querySelector('.container');
 let modal =  document.querySelectorAll('.modal');
-let modalLogin = document.querySelector('.modal-window__login');
-let modalRegistration = document.querySelector('.modal-window__registration');
+let forms = document.querySelectorAll('.modal-content');
 
 let closeButton = document.querySelectorAll('.close');
+let input = document.querySelectorAll('input');
+
+// open/close modal
 
 const openModal = (element) => {
   element.style.display = 'block';
@@ -16,6 +18,7 @@ const openModal = (element) => {
 const closeModal = (element) => {
   element.style.display = 'none';
   container.style.display = 'flex';
+  element.querySelectorAll('input').forEach(input => input.value = "")    // ???
 };
 
 if (modal.length > 0) {
@@ -33,3 +36,25 @@ if (modal.length > 0) {
     })
   }
 }
+
+//input-ы  ввод данных
+
+const handleOnChange = (event, element) => {
+  element.value = event.target.value
+  console.log(element.value);
+} 
+
+if (input.length > 0) {
+  for (let i = 0; i < input.length; i++){
+    input[i].addEventListener('change', () => handleOnChange(event, input[i]))
+  }
+};
+
+
+// submit button
+
+forms.forEach(form => form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  console.log('clic');
+  closeModal(form.closest('.modal'))
+}))
