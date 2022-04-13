@@ -1,14 +1,19 @@
+import { Form } from './src/Form.js';
+
 let buttonLogin = document.querySelector('.login');
 let buttonRegistration = document.querySelector('.registation');
 
 let container = document.querySelector('.container');
-let modal =  document.querySelectorAll('.modal');
-let forms = document.querySelectorAll('.modal-content');
+let modal = document.querySelectorAll('.modal');
 
 let closeButton = document.querySelectorAll('.close');
 let input = document.querySelectorAll('input');
+let emptyField = document.querySelectorAll('.empty-field');
 
-// open/close modal
+
+
+const loginForm = new Form(".modal-content__login");
+const regForm = new Form(".modal-content__registration");
 
 const openModal = (element) => {
   element.style.display = 'block';
@@ -18,14 +23,23 @@ const openModal = (element) => {
 const closeModal = (element) => {
   element.style.display = 'none';
   container.style.display = 'flex';
-  element.querySelectorAll('input').forEach(input => input.value = "")    // ???
+  element.querySelectorAll('input')
+    .forEach(input => {
+      input.value = "";
+      input.style.border = '1px solid #000';
+    });    // ???
+
+    const errors = document.querySelectorAll('.error')
+    for (let error of errors) {
+      error.remove();
+    }
+
 };
 
-if (modal.length > 0) {
-  buttonLogin.addEventListener('click', () => openModal(modal[0]))
-  
-  buttonRegistration.addEventListener('click', () => openModal(modal[1]))
+buttonLogin.addEventListener('click', () => openModal(loginForm.form.closest('.modal')))
+buttonRegistration.addEventListener('click', () => openModal(regForm.form.closest('.modal')))
 
+if (modal.length > 0) {
   for (let i = 0; i < modal.length; i++){
     closeButton[i].addEventListener('click', () => closeModal(modal[i]));
 
@@ -36,25 +50,3 @@ if (modal.length > 0) {
     })
   }
 }
-
-//input-ы  ввод данных
-
-const handleOnChange = (event, element) => {
-  element.value = event.target.value
-  console.log(element.value);
-} 
-
-if (input.length > 0) {
-  for (let i = 0; i < input.length; i++){
-    input[i].addEventListener('change', () => handleOnChange(event, input[i]))
-  }
-};
-
-
-// submit button
-
-forms.forEach(form => form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  console.log('clic');
-  closeModal(form.closest('.modal'))
-}))

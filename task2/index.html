@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="modal.css">
+  <link rel="stylesheet" href="./src/style/style.css">
+  <link rel="stylesheet" href="./src/style/modal.css">
+  
   <title>Task_2</title>
 </head>
 <body>
@@ -19,16 +20,34 @@
       <div class="modal">
         <form class="modal-content modal-content__login">
           <h3>Form for logging</h3>
-          <div class="modal-content__input">
-            <label class="input-label">Email: </label>
-            <input class="email" type='text' placeholder="Enter email" required/>
+          <div class="message-for-error">
+            <div class="modal-content__input">
+              <label class="input-label">Email: </label>
+              <input 
+                name="email"
+                class="email" 
+                type='text' 
+                placeholder="Enter email"
+    
+                required
+              />
+            </div>
           </div>
-          <div class="modal-content__input">
-            <label class="input-label" >Password: </label>
-            <input class="password" type='password' placeholder="Enter password" required/>
+          <div class="message-for-error">
+            <div class="modal-content__input">
+              <label class="input-label" >Password: </label>
+              <input 
+                name="password"
+                class="password" 
+                type="password"
+                placeholder="Enter password"
+            
+                required
+              />
+            </div>
           </div>
           <div class="submit-section">
-            <button  type="submit" class="submit-login">Submit</button>
+            <button  type="submit" class="submit-login" >Submit</button>
             <button  type="button" class="close">Close</button>
           </div>
         </form>
@@ -36,20 +55,40 @@
       <div class="modal">
         <form class="modal-content modal-content__registration">
           <h3>Form for registration</h3>
-          <div class="modal-content__input">
-            <label class="input-label">Email: </label>
-            <input class="email" type='text' placeholder="Enter email" required/>
+          <div class="message-for-error">
+            <div class="modal-content__input">
+              <label class="input-label">Email: </label>
+              <input 
+                name="email"
+                class="email" 
+                type='text' 
+                placeholder="Enter email"
+                data-reg="^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$" 
+                required
+              />
+            </div>
           </div>
-          <div class="modal-content__input">
-            <label class="input-label" >Password: </label>
-            <input class="password" type='password' placeholder="Enter password" required/>
+          <div class="message-for-error">
+            <div class="modal-content__input">
+                <label class="input-label" >Password: </label>
+                <input 
+                  name="password"
+                  class="password" 
+                  type="password"
+                  placeholder="Enter password"
+                  data-reg="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" 
+                  required
+                />
+            </div>
           </div>
-          <div class="modal-content__input">
-            <label class="input-label" >Confirm password: </label>
-            <input class="confirm-password" type='password' placeholder="Repeat password" required/>
+          <div class="message-for-error">
+            <div class="modal-content__input">
+              <label class="input-label" >Confirm password: </label>
+              <input class="confirm-password" type='password' placeholder="Repeat password" required/>
+            </div>
           </div>
           <div class="submit-section">
-            <button type="submit" class="submit-registration">Submit</button>
+            <button type="submit" class="submit-registration" >Submit</button>
             <button type="button" class="close">Close</button>
           </div>
         </form>
@@ -57,7 +96,6 @@
     </div>
     <footer class="footer"></footer>
   </div> 
-  <!-- <script defer src="./index.js"></script> -->
-  <script defer src="./index_class.js"></script>
+  <script type="module" src="./index.js"></script>
 </body>
 </html>
