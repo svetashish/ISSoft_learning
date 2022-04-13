@@ -1,51 +1,51 @@
+import { CloseModal } from './src/closeModal.js';
 import { Form } from './src/Form.js';
+import { LoginForm } from './src/LoginForm.js';
+import { RegistrartionForm } from './src/RegistrationForm.js';
+
+window.addEventListener('load', () => {
+  if(!localStorage.key('users')) {
+    localStorage.setItem('users', '{}')
+  }
+})
 
 let buttonLogin = document.querySelector('.login');
 let buttonRegistration = document.querySelector('.registation');
+let closeButton = document.querySelectorAll('.close');
 
 let container = document.querySelector('.container');
 let modal = document.querySelectorAll('.modal');
 
-let closeButton = document.querySelectorAll('.close');
-let input = document.querySelectorAll('input');
-let emptyField = document.querySelectorAll('.empty-field');
 
-
-
-const loginForm = new Form(".modal-content__login");
-const regForm = new Form(".modal-content__registration");
+const loginForm = new LoginForm(".modal-content__login");
+const regForm = new RegistrartionForm(".modal-content__registration");
 
 const openModal = (element) => {
   element.style.display = 'block';
   container.style.display = 'none';
+  
+  if(document.querySelector('.wrapper__content p')){
+    document.querySelector('.wrapper__content p').remove();
+  }
 };
 
-const closeModal = (element) => {
-  element.style.display = 'none';
-  container.style.display = 'flex';
-  element.querySelectorAll('input')
-    .forEach(input => {
-      input.value = "";
-      input.style.border = '1px solid #000';
-    });    // ???
-
-    const errors = document.querySelectorAll('.error')
-    for (let error of errors) {
-      error.remove();
-    }
-
-};
 
 buttonLogin.addEventListener('click', () => openModal(loginForm.form.closest('.modal')))
 buttonRegistration.addEventListener('click', () => openModal(regForm.form.closest('.modal')))
 
 if (modal.length > 0) {
   for (let i = 0; i < modal.length; i++){
-    closeButton[i].addEventListener('click', () => closeModal(modal[i]));
+    closeButton[i].addEventListener('click', () => {
+      const closeModal = new CloseModal(modal[i]);
+      closeModal.closeForm()
+    });
 
     window.addEventListener('click', (event) => {
       for (let i = 0; i < modal.length; i++) {
-        if (event.target == modal[i]) closeModal(modal[i])
+        if (event.target == modal[i]) { 
+          const closeModal = new CloseModal(modal[i]);
+          closeModal.closeForm()
+        }
       }
     })
   }

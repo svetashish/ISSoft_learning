@@ -1,25 +1,29 @@
 import { Error } from "./Error.js";
-import { LocalStorage } from "./LocalStorage.js";
 
 export class Form { 
   constructor (selector){
     this.form = document.querySelector(selector);
-    this.form.addEventListener('submit', event => this.handleSubmitForm(selector, event));
-    this.form.addEventListener('change', ({target}) => this.handleInput(target));
-    // this.form.addEventListener('input', this.removeError)
+    this.formElements = Array.from(this.form.elements);
+    this.form.addEventListener('submit', event => this.handleSubmitForm(event));
+    this.form.addEventListener('change', ({target}) => this.handleChangeInput(target));
+    this.form.addEventListener('input', ({target}) => this.handleInput(target))
+    this.inputArray = this.formElements.filter(element => element.tagName === 'INPUT');
+    this.buttonSubmit = this.formElements.find(element => element.type === 'submit');
+    this.data = {
+      'email': '',
+      'password': '',
+    };
   };
   
-  handleSubmitForm(selector, event) {
-      selector === ".modal-content__login" 
-        ? this.handleLoginForm(event)
-        : this.setInputData(event);
+  handleSubmitForm(event) {
+    event.preventDefault();
   };
 
-  handleInput (target) {
-    // if (this.form.querySelectorAll('.error')) {
-    //   target.addEventListener('input', )
-    // }
-      
+  handleChangeInput (target) {
+         
+    this.data.email = this.inputArray.find(element => element.name == "email").value;
+    this.data.password = this.inputArray.find(element => element.name == "password").value;
+
     if (target.hasAttribute('data-reg')) {
       const inputValue = target.value;
       const inputReg = target.getAttribute('data-reg');
@@ -36,58 +40,27 @@ export class Form {
         target.closest('div').after(errorMessage.addErrorToForm());
       }
     }
+
+    this.disabledButton()
   };
 
-  setInputData (event) {
-    event.preventDefault();
-
-    // console.log(this.form.querySelectorAll('.error'));
-
-    if (this.confirmPassword()) {
-      const inputArray = Array.from(this.form.elements)
-        .filter(element => element.tagName === 'INPUT');
-
-      const lsData = new LocalStorage(inputArray);
-      lsData.setData();
-   
-      // closeModal(this.form.closest('.modal')); 
-
-    } else {
-      Array.from(this.form.elements)
-        .filter(element => element.type === 'password')
-          .forEach(element => element.style.border = "1px solid red");
-
-      const errorMessage = new Error('The password does not match', false);
-      this.form.querySelector('h3').after(errorMessage.addErrorToForm());     
+  handleInput(target) {
+    if(this.form.querySelectorAll('.top').length !== 0) {
+     this.form.querySelector('.top').remove() 
     }
-  };
 
-  handleButtonSubmit() {
+    if (target.closest('.message-for-error').querySelector('.error')) {
+      target.closest('.message-for-error').querySelector('.error').remove();
+      target.style.border = '#000';
+    }
+  }
+
+  disabledButton() {
     
     let hasError = this.form.querySelectorAll('.error').length == 0 
       ? true 
       : false;
    
-    return hasError;
-  }
-
-  confirmPassword () {
-    let isMatch = false;
-
-    let arr = Array.from(this.form.elements)
-      .filter(element => element.type === 'password')
-     
-    isMatch = (arr[0].value === arr[1].value) ? true : false;
-    return isMatch;
-  };
-
-  handleLoginForm(event) {
-    event.preventDefault();
-
-    const inputArray = Array.from(this.form.elements)
-        .filter(element => element.tagName === 'INPUT');
-
-    const lsData = new LocalStorage(inputArray);
-    lsData.getData();
+      this.buttonSubmit.disabled = hasError === true ? false : true;   
   }
 }

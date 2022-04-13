@@ -1,38 +1,35 @@
 import { Error } from "./Error.js";
+import { CloseModal } from "./closeModal.js";
 
 export class LocalStorage {
-  constructor(array) {
+  constructor(array, form, data) {
     this.arrData = array;
-    this.email = array.find(element => element.name == "email").value;
-    this.password = array.find(element => element.name == "password").value;
+    this.data = data;
     this.localStorageValue = JSON.parse(localStorage.getItem('users'));
     this.users = Object.keys(this.localStorageValue);
+    this.form = form;
     
   }
 
   setData() { 
-    if (this.users.includes(this.email)) {
-      let errorMessage = new Error('Such user already signed up', false );
-      document.querySelectorAll('h3')[1].after(errorMessage.addErrorToForm());
+    let regData = false;
+
+    if (this.users.includes(this.data.email)) {
+      regData = false;
     } else {
-      this.localStorageValue[`${this.email}`] = {"password": `${this.password}`};
+      regData = true;
+      this.localStorageValue[`${this.data.email}`] = {"password": `${this.data.password}`};
       localStorage.setItem('users', JSON.stringify(this.localStorageValue));    
     }
+    return regData;
   }
 
   getData() {
     let isChecked = false;
 
-    if(this.users.includes(this.email)) {
-      isChecked = (this.localStorageValue[`${this.email}`].password === this.password) ? true : false;
+    if(this.users.includes(this.data.email)) {
+      isChecked = (this.localStorageValue[`${this.data.email}`].password === this.data.password) ? true : false;
     }   
-
-    if (isChecked) {
-      closeModal(this.form.closest('.modal')); 
-      container.innerHTML = '<h2>Hello world!</h2>';
-    } else {
-      const errorMessage = new Error('Incorrect email/password combination', false);
-      document.querySelectorAll('h3')[0].after(errorMessage.addErrorToForm());
-    } 
+    return isChecked;
   }
 }

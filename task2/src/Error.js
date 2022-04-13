@@ -1,19 +1,23 @@
 export class Error {
-  constructor (error, isPadding) {
+  constructor (error, isBottom) {
     this.errorText = error;
-    this.padding = isPadding;
+    this.position = isBottom;
   }  
 
   addErrorToForm () {
-      const error = document.createElement('div');
-      error.className = 'error';
-      error.style.color = 'red';
-      error.innerHTML = this.errorText;
+    const error = document.createElement('div');
+    error.style.color = 'red';
+    error.innerHTML = this.errorText;
+    error.className = 'error';
+     
+    if(this.position) {
+      error.style.paddingTop = "5px";
+      error.style.paddingLeft = "27%";
+    } else {
+      error.classList.add("top");
+      error.style.fontSize = "14px";
+    }
 
-      if (this.padding) {
-        error.style.paddingTop = "5px";
-        error.style.paddingLeft = "27%";
-      }
       return error;
   }
 }

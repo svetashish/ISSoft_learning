@@ -32,6 +32,13 @@ footer, header {
   margin-top: 100px;
 }
 
+.wrapper__content p {
+  margin-top: 20px;
+  font-size: 20px;
+  text-align: center;
+  color: yellowgreen;
+}
+
 button {
   font-size: 18px;
   height: 30px;
