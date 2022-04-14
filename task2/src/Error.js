@@ -17,8 +17,7 @@ export class Error {
       error.classList.add("top");
       error.style.fontSize = "14px";
     }
-
-      return error;
+    return error;
   }
 }
 

@@ -17,8 +17,8 @@ export class LoginForm extends Form {
     
     if (isChecked) {
       const closeModal = new CloseModal(this.form.closest('.modal'));
-      closeModal.closeForm()
-      this.container.innerHTML = '<h2>Hello world!</h2>';
+      closeModal.closeForm();
+      this.container.innerHTML = `<h2>Hello! My dear ${this.data.email}!</h2>`;
     } else {
       if(!this.form.querySelector('.top')) {
         const errorMessage = new Error('Incorrect email/password combination', false);

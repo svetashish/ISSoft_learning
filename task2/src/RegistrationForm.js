@@ -13,7 +13,12 @@ export class RegistrartionForm extends Form {
 
     if (this.confirmPassword()) {
       const lsData = new LocalStorage(this.inputArray, this.form, this.data);
+      const lsData2 = new LocalStorage(this.inputArray, this.form, this.data);
       let isReg = lsData.setData();
+
+      console.log(lsData, "lsData");
+      console.log(lsData2, "lsData2");
+      console.log(_.isEqual(lsData, lsData2), 'равенство');
     
       if (isReg) {
         const closeModal = new CloseModal(this.form.closest('.modal'));

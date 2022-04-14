@@ -1,15 +1,27 @@
-import { Error } from "./Error.js";
-import { CloseModal } from "./closeModal.js";
 
 export class LocalStorage {
-  constructor(array, form, data) {
-    this.arrData = array;
-    this.data = data;
-    this.localStorageValue = JSON.parse(localStorage.getItem('users'));
-    this.users = Object.keys(this.localStorageValue);
-    this.form = form;
-    
-  }
+//   constructor(array, form, data) {
+//     if (LocalStorage.instance) {
+//       return LocalStorage.instance
+//     } else {
+//       this.arrData = array;
+//       this.data = data;
+//       this.localStorageValue = JSON.parse(localStorage.getItem('users'));
+//       this.users = Object.keys(this.localStorageValue);
+//       this.form = form;
+//       LocalStorage.instance = this;
+//       return LocalStorage.instance;
+//     }
+// }
+
+constructor(array, form, data) {
+  this.arrData = array;
+  this.data = data;
+  this.localStorageValue = JSON.parse(localStorage.getItem('users'));
+  this.users = Object.keys(this.localStorageValue);
+  this.form = form;
+  
+}
 
   setData() { 
     let regData = false;
@@ -33,3 +45,4 @@ export class LocalStorage {
     return isChecked;
   }
 }
+
