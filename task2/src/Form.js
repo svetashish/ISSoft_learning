@@ -1,29 +1,37 @@
 import { Error } from "./Error.js";
+import { CloseModal } from "./closeModal.js";
 
 export class Form { 
+ 
   constructor (selector){
+    this.keyName = 'users';
+    this.isSubmit = false;
     this.form = document.querySelector(selector);
     this.formElements = Array.from(this.form.elements);
     this.form.addEventListener('submit', event => this.handleSubmitForm(event));
     this.form.addEventListener('change', ({target}) => this.handleChangeInput(target));
-    this.form.addEventListener('input', ({target}) => this.handleInput(target))
+    this.form.addEventListener('input', ({target}) => this.handleInput(target));
     this.inputArray = this.formElements.filter(element => element.tagName === 'INPUT');
+    this.passwords = this.formElements.filter(element => element.type === 'password')
     this.buttonSubmit = this.formElements.find(element => element.type === 'submit');
+    this.buttonClose = this.form.querySelector('.close');
+    this.buttonClose.addEventListener('click', ({target}) => this.handleClose(target));
+    window.addEventListener('click', ({target}) => this.handleClose(target))
     this.data = {
       'email': '',
       'password': '',
     };
   };
-  
+
   handleSubmitForm(event) {
     event.preventDefault();
+    if(!localStorage.getItem(this.keyName)) {
+        localStorage.setItem(this.keyName, '{}')
+      }
+      this.isSubmit = true;
   };
 
-  handleChangeInput (target) {
-         
-    this.data.email = this.inputArray.find(element => element.name == "email").value;
-    this.data.password = this.inputArray.find(element => element.name == "password").value;
-
+  handleChangeInput (target) {   
     if (target.hasAttribute('data-reg')) {
       const inputValue = target.value;
       const inputReg = target.getAttribute('data-reg');
@@ -40,27 +48,39 @@ export class Form {
         target.closest('div').after(errorMessage.addErrorToForm());
       }
     }
+    this.data.email = this.inputArray.find(element => element.name == "email").value;
+    this.data.password = this.inputArray.find(element => element.name == "password").value;
 
-    this.disabledButton()
+    console.log(this.data);
+    this.buttonSubmit.disabled = this.disabledButton()
   };
 
   handleInput(target) {
-    if(this.form.querySelectorAll('.top').length !== 0) {
-     this.form.querySelector('.top').remove() 
-    }
+    this.buttonSubmit.disabled = false;
+    
+    if (this.isSubmit)
+      this.inputArray.forEach(element => element.style.border = '#000')
+
+    if (this.form.querySelectorAll('.top').length !== 0) 
+     this.form.querySelector('.top').remove()  
 
     if (target.closest('.message-for-error').querySelector('.error')) {
       target.closest('.message-for-error').querySelector('.error').remove();
       target.style.border = '#000';
     }
-  }
+  };
+
+  handleClose (target) {
+    if (target === this.form.closest('.modal') || target === this.buttonClose) { 
+      const closeModal = new CloseModal(this.form.closest('.modal'));
+      closeModal.closeForm();
+    }
+  };
 
   disabledButton() {
-    
     let hasError = this.form.querySelectorAll('.error').length == 0 
-      ? true 
-      : false;
-   
-      this.buttonSubmit.disabled = hasError === true ? false : true;   
-  }
+      ? false 
+      : true;        
+    return hasError;  
+  };
 }

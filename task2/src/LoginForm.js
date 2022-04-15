@@ -1,7 +1,7 @@
 import { Form } from "./Form.js";
 import { CloseModal } from "./closeModal.js";
 import { Error } from "./Error.js";
-import { LocalStorage } from "./LocalStorage.js";
+import { DataLayer } from "./DataLayer.js";
 
 export class LoginForm extends Form {
   constructor(selector){
@@ -12,9 +12,13 @@ export class LoginForm extends Form {
   handleSubmitForm(event) {
     super.handleSubmitForm(event);
     
-    const lsData = new LocalStorage(this.inputArray, this.form, this.data);
-    let isChecked = lsData.getData();
+    console.log(this.data, 'какую дату передаем в DataLayer');
+    const dataBase = new DataLayer(this.data, this.keyName);
     
+    let isChecked = dataBase.checkData();
+    
+    console.log(dataBase, "isChecked", isChecked);
+
     if (isChecked) {
       const closeModal = new CloseModal(this.form.closest('.modal'));
       closeModal.closeForm();

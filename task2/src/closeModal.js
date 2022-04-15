@@ -16,6 +16,6 @@ export class CloseModal {
       
     for (let error of this.errors) {
         error.remove();
-      }    
+    }    
   }
 }

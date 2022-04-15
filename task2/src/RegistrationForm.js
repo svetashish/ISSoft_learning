@@ -1,7 +1,8 @@
 import { Form } from "./Form.js";
 import { Error } from "./Error.js";
-import { LocalStorage } from "./LocalStorage.js";
+import { DataLayer } from "./DataLayer.js";
 import { CloseModal } from "./closeModal.js";
+import { CompareElements } from "./CompareElements.js";
 
 export class RegistrartionForm extends Form {
   constructor (selector) {
@@ -11,20 +12,20 @@ export class RegistrartionForm extends Form {
   handleSubmitForm(event) {
     super.handleSubmitForm(event);
 
-    if (this.confirmPassword()) {
-      const lsData = new LocalStorage(this.inputArray, this.form, this.data);
-      const lsData2 = new LocalStorage(this.inputArray, this.form, this.data);
-      let isReg = lsData.setData();
+    let arrayOfPasswords = this.passwords.map(element => element.value)
+    let isPasswordsConfirm = new CompareElements(arrayOfPasswords); 
 
-      console.log(lsData, "lsData");
-      console.log(lsData2, "lsData2");
-      console.log(_.isEqual(lsData, lsData2), 'равенство');
-    
+    if (isPasswordsConfirm.compare()) {
+      const dataBase = new DataLayer(this.data, this.keyName);
+      let isReg = dataBase.setData();
+
+      console.log(dataBase);
+
       if (isReg) {
         const closeModal = new CloseModal(this.form.closest('.modal'));
         closeModal.closeForm();
         document.querySelector('.container')
-          .insertAdjacentHTML('afterend', `<p>${this.data.email} is successfully signed up</p>`);
+          .insertAdjacentHTML('afterend', `<p class='registration'>${this.data.email} is successfully signed up</p>`);
       } else {
         if(!this.form.querySelector('.top')) {
           let errorMessage = new Error('Such user already signed up', false );
@@ -41,17 +42,6 @@ export class RegistrartionForm extends Form {
         this.form.querySelector('h3').after(errorMessage.addErrorToForm());  
       }   
     }
-    super.disabledButton();
-  };
-
-
-  confirmPassword () {
-    let isMatch = false;
-
-    let arr = this.formElements
-      .filter(element => element.type === 'password')
-     
-    isMatch = (arr[0].value === arr[1].value) ? true : false;
-    return isMatch;
+    this.buttonSubmit.disabled = super.disabledButton();
   };
 }

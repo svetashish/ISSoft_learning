@@ -1,13 +1,13 @@
 export class Error {
-  constructor (error, isBottom) {
-    this.errorText = error;
+  constructor (errorMessage, isBottom) {
+    this.errorMessage = errorMessage;
     this.position = isBottom;
   }  
 
   addErrorToForm () {
     const error = document.createElement('div');
     error.style.color = 'red';
-    error.innerHTML = this.errorText;
+    error.innerHTML = this.errorMessage;
     error.className = 'error';
      
     if(this.position) {
