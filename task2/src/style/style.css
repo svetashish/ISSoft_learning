@@ -7,11 +7,14 @@
 body {
   height: 100vh;
 }
+h3 {
+  color: #210cb5;
+}
 
 footer, header {
   height: 100px;
   width: 100%;
-  background-color: yellowgreen
+  background-color: #fde95cb3;
 }
 
 .wrapper {
@@ -40,14 +43,38 @@ footer, header {
 }
 
 button {
-  font-size: 18px;
-  height: 30px;
   width: 150px;
+  text-decoration: none;
+  display: inline-block;
+  color: white;
+  padding: 15px;
+  margin: 10px 20px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  /* background-image: linear-gradient(to right, #db7da4 0%, #b830f0 51%, #db7da4 100%); */
+  background-image: linear-gradient(to right, #20c8e3 0%, #4830F0 51%, #20c8e3 100%);
+  background-size: 200% auto;
+  box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+  transition: .6s;
+  border: none;
 }
 
+button:hover {
+  background-position: right center;
+}
+
+
 input {
-  padding: 10px;
-  width: 70%;
+  display: block;
+  width: 80%;
+  padding: 0 20px;
+  margin-bottom: 10px;
+  background: #E9EFF6;
+  line-height: 40px;
+  border-width: 0;
+  border-radius: 20px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .message-for-error {
