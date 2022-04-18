@@ -4,21 +4,17 @@ import { Error } from "./Error.js";
 import { DataLayer } from "./DataLayer.js";
 
 export class LoginForm extends Form {
-  constructor(selector){
-    super(selector);
+  constructor(selector, tableName, regData){
+    super(selector, tableName, regData);
     this.container = document.querySelector('.container');
   }
 
   handleSubmitForm(event) {
     super.handleSubmitForm(event);
+  
+    const dataBase = new DataLayer();
+    const isChecked = dataBase.checkData(this.data, this.keyName);
     
-    console.log(this.data, 'какую дату передаем в DataLayer');
-    const dataBase = new DataLayer(this.data, this.keyName);
-    
-    let isChecked = dataBase.checkData();
-    
-    console.log(dataBase, "isChecked", isChecked);
-
     if (isChecked) {
       const closeModal = new CloseModal(this.form.closest('.modal'));
       closeModal.closeForm();

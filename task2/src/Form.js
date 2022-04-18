@@ -2,9 +2,9 @@ import { Error } from "./Error.js";
 import { CloseModal } from "./closeModal.js";
 
 export class Form { 
- 
-  constructor (selector){
-    this.keyName = 'users';
+  constructor (selector, tableName, regData){
+    console.log(selector, tableName, regData);
+    this.keyName = tableName;
     this.isSubmit = false;
     this.form = document.querySelector(selector);
     this.formElements = Array.from(this.form.elements);
@@ -12,15 +12,12 @@ export class Form {
     this.form.addEventListener('change', ({target}) => this.handleChangeInput(target));
     this.form.addEventListener('input', ({target}) => this.handleInput(target));
     this.inputArray = this.formElements.filter(element => element.tagName === 'INPUT');
-    this.passwords = this.formElements.filter(element => element.type === 'password')
+    this.passwords = this.formElements.filter(element => element.type === 'password');
     this.buttonSubmit = this.formElements.find(element => element.type === 'submit');
     this.buttonClose = this.form.querySelector('.close');
     this.buttonClose.addEventListener('click', ({target}) => this.handleClose(target));
-    window.addEventListener('click', ({target}) => this.handleClose(target))
-    this.data = {
-      'email': '',
-      'password': '',
-    };
+    window.addEventListener('click', ({target}) => this.handleClose(target));
+    this.data = regData;
   };
 
   handleSubmitForm(event) {
@@ -32,6 +29,8 @@ export class Form {
   };
 
   handleChangeInput (target) {   
+
+    console.log(this.data);
     if (target.hasAttribute('data-reg')) {
       const inputValue = target.value;
       const inputReg = target.getAttribute('data-reg');
@@ -48,10 +47,10 @@ export class Form {
         target.closest('div').after(errorMessage.addErrorToForm());
       }
     }
+
     this.data.email = this.inputArray.find(element => element.name == "email").value;
     this.data.password = this.inputArray.find(element => element.name == "password").value;
 
-    console.log(this.data);
     this.buttonSubmit.disabled = this.disabledButton()
   };
 
@@ -78,7 +77,7 @@ export class Form {
   };
 
   disabledButton() {
-    let hasError = this.form.querySelectorAll('.error').length == 0 
+    const hasError = this.form.querySelectorAll('.error').length == 0 
       ? false 
       : true;        
     return hasError;  

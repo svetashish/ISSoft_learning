@@ -1,54 +1,42 @@
 export class DataLayer {
-  // constructor(data, tableName) {
-  //   if (DataLayer.instance) {
-  //     console.log("не создаем");
-  //     return DataLayer.instance
-  //   } else {
-  //     this.data = data;
-  //     this.tableName = tableName;
-  //     DataLayer.instance = this;
-  //     console.log("создаем");
-  //     return DataLayer.instance;
-  //   }
-  // }
-
-  constructor(data, tableName) {
-    this.data = data;
-    this.tableName = tableName;    
+  constructor() {
+    if (DataLayer.instance) {
+      console.log("не создаем");
+      return DataLayer.instance
+    } else {
+      DataLayer.instance = this;
+      console.log("создаем");
+      return DataLayer.instance;
+    }
   }
 
-  getData() {
-    let dataObject = JSON.parse(localStorage.getItem(this.tableName));
-    let users = Object.keys(dataObject);
+   getData(tableName) {
+    const dataObject = JSON.parse(localStorage.getItem(tableName));
+    const keyName = Object.keys(dataObject); 
 
-    return [dataObject, users];
+    return [dataObject, keyName];
   }
 
-  setData() { 
-    console.log(this.data);
+  setData(data, tableName) {  
     let regData = false;
-    let [dataObject, users] = this.getData();
+    const [dataObject, keyName] = this.getData(tableName);
 
-    if (users.includes(this.data.email)) {
+    if (keyName.includes(data.email)) {
       regData = false;
     } else {
       regData = true;
-      dataObject[`${this.data.email}`] = {"password": `${this.data.password}`};
-      localStorage.setItem(`${this.tableName}`, JSON.stringify(dataObject));    
+      dataObject[`${data.email}`] = {password: `${data.password}`};
+      localStorage.setItem(`${tableName}`, JSON.stringify(dataObject));    
     }
     return regData;
   }
 
-  checkData() {
-    console.log(this.data);
+  checkData(data, tableName) {
     let isChecked = false;
-    let [dataObject, users] = this.getData();
+    const [dataObject, keyName] = this.getData(tableName);
 
-    if(users.includes(this.data.email)) {
-
-      console.log(dataObject[`${this.data.email}`].password, 'ls');
-      console.log(this.data.password, 'не лс');
-      isChecked = (dataObject[`${this.data.email}`].password === this.data.password) ? true : false;
+    if(keyName.includes(data.email)) {
+      isChecked = (dataObject[`${data.email}`].password === data.password) ? true : false;
     }   
     return isChecked;
   }

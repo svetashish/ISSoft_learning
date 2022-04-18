@@ -5,21 +5,19 @@ import { CloseModal } from "./closeModal.js";
 import { CompareElements } from "./CompareElements.js";
 
 export class RegistrartionForm extends Form {
-  constructor (selector) {
-    super(selector);
+  constructor (selector, tableName, regData){
+    super(selector, tableName, regData);
   }
 
   handleSubmitForm(event) {
     super.handleSubmitForm(event);
 
-    let arrayOfPasswords = this.passwords.map(element => element.value)
-    let isPasswordsConfirm = new CompareElements(arrayOfPasswords); 
+    const arrayOfPasswords = this.passwords.map(element => element.value)
+    const isPasswordsConfirm = new CompareElements(arrayOfPasswords); 
 
     if (isPasswordsConfirm.compare()) {
-      const dataBase = new DataLayer(this.data, this.keyName);
-      let isReg = dataBase.setData();
-
-      console.log(dataBase);
+      const dataBase = new DataLayer();
+      const isReg = dataBase.setData(this.data, this.keyName);
 
       if (isReg) {
         const closeModal = new CloseModal(this.form.closest('.modal'));
@@ -28,7 +26,7 @@ export class RegistrartionForm extends Form {
           .insertAdjacentHTML('afterend', `<p class='registration'>${this.data.email} is successfully signed up</p>`);
       } else {
         if(!this.form.querySelector('.top')) {
-          let errorMessage = new Error('Such user already signed up', false );
+          const errorMessage = new Error('Such user already signed up', false );
           document.querySelectorAll('h3')[1].after(errorMessage.addErrorToForm())
         }
       }
