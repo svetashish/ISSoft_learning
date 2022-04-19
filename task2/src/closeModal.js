@@ -10,8 +10,8 @@ export class CloseModal {
     this.container.style.display = 'flex';
     this.form.querySelectorAll('input')
       .forEach(input => {
-        input.value = "";
-        input.style.border = '1px solid #000';
+        input.value = '';
+        input.style.border = 'none';
       });  
       
     for (let error of this.errors) {

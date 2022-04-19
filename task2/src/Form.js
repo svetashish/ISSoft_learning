@@ -3,8 +3,8 @@ import { CloseModal } from "./closeModal.js";
 
 export class Form { 
   constructor (selector, tableName, regData){
-    console.log(selector, tableName, regData);
     this.keyName = tableName;
+    this.data = regData;
     this.isSubmit = false;
     this.form = document.querySelector(selector);
     this.formElements = Array.from(this.form.elements);
@@ -17,7 +17,6 @@ export class Form {
     this.buttonClose = this.form.querySelector('.close');
     this.buttonClose.addEventListener('click', ({target}) => this.handleClose(target));
     window.addEventListener('click', ({target}) => this.handleClose(target));
-    this.data = regData;
   };
 
   handleSubmitForm(event) {
@@ -30,7 +29,6 @@ export class Form {
 
   handleChangeInput (target) {   
 
-    console.log(this.data);
     if (target.hasAttribute('data-reg')) {
       const inputValue = target.value;
       const inputReg = target.getAttribute('data-reg');
@@ -42,16 +40,16 @@ export class Form {
       }
   
       if (!reg.test(inputValue)) {
-        target.style.border = "1px solid red";
+        target.style.border = '1px solid red';
         const errorMessage = new Error('Incorrect format entering data', true);
         target.closest('div').after(errorMessage.addErrorToForm());
       }
-    }
+    };
+    
+    const keysData = Object.keys(this.data);
 
-    this.data.email = this.inputArray.find(element => element.name == "email").value;
-    this.data.password = this.inputArray.find(element => element.name == "password").value;
-
-    this.buttonSubmit.disabled = this.disabledButton()
+    this.data.email = this.inputArray.find(element => element.name == keysData[0]).value;
+    this.data.password = this.inputArray.find(element => element.name ==  keysData[1]).value;
   };
 
   handleInput(target) {

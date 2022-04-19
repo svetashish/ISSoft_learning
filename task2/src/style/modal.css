@@ -29,10 +29,3 @@
   align-items: center;
   justify-content: space-evenly;
 }
-
-.input-label {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1;
-  width: 20%;
-}

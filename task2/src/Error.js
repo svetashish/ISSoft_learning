@@ -1,7 +1,7 @@
 export class Error {
-  constructor (errorMessage, isBottom) {
+  constructor (errorMessage, inBottom) {
     this.errorMessage = errorMessage;
-    this.position = isBottom;
+    this.position = inBottom;
   }  
 
   addErrorToForm () {
@@ -11,11 +11,11 @@ export class Error {
     error.className = 'error';
      
     if(this.position) {
-      error.style.paddingTop = "5px";
-      error.style.paddingLeft = "27%";
+      error.style.paddingTop = '5px';
+      error.style.paddingLeft = '27%';
     } else {
-      error.classList.add("top");
-      error.style.fontSize = "14px";
+      error.classList.add('top');
+      error.style.fontSize = '14px';
     }
     return error;
   }

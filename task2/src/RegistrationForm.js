@@ -12,7 +12,7 @@ export class RegistrartionForm extends Form {
   handleSubmitForm(event) {
     super.handleSubmitForm(event);
 
-    const arrayOfPasswords = this.passwords.map(element => element.value)
+    const arrayOfPasswords = this.passwords.map(element => element.value);
     const isPasswordsConfirm = new CompareElements(arrayOfPasswords); 
 
     if (isPasswordsConfirm.compare()) {
@@ -26,14 +26,14 @@ export class RegistrartionForm extends Form {
           .insertAdjacentHTML('afterend', `<p class='registration'>${this.data.email} is successfully signed up</p>`);
       } else {
         if(!this.form.querySelector('.top')) {
-          const errorMessage = new Error('Such user already signed up', false );
-          document.querySelectorAll('h3')[1].after(errorMessage.addErrorToForm())
+          const errorMessage = new Error('Such user already signed up', false);
+          this.form.querySelector('h3').after(errorMessage.addErrorToForm());
         }
       }
     } else {
       this.formElements
         .filter(element => element.type === 'password')
-          .forEach(element => element.style.border = "1px solid red");
+          .forEach(element => element.style.border = '1px solid red');
 
       if(!this.form.querySelector('.top')) {
         const errorMessage = new Error('The password does not match', false);

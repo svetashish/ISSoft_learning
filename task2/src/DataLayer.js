@@ -18,17 +18,17 @@ export class DataLayer {
   }
 
   setData(data, tableName) {  
-    let regData = false;
+    let isNeedReg = false;
     const [dataObject, keyName] = this.getData(tableName);
 
     if (keyName.includes(data.email)) {
-      regData = false;
+      isNeedReg = false;
     } else {
-      regData = true;
+      isNeedReg = true;
       dataObject[`${data.email}`] = {password: `${data.password}`};
       localStorage.setItem(`${tableName}`, JSON.stringify(dataObject));    
     }
-    return regData;
+    return isNeedReg;
   }
 
   checkData(data, tableName) {
