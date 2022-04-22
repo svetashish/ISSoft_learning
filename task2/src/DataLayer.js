@@ -1,33 +1,33 @@
 export class DataLayer {
   constructor() {
     if (DataLayer.instance) {
-      console.log("не создаем");
-      return DataLayer.instance
+      return DataLayer.instance;
     } else {
       DataLayer.instance = this;
-      console.log("создаем");
       return DataLayer.instance;
     }
   }
 
-   getData(tableName) {
-    const dataObject = JSON.parse(localStorage.getItem(tableName));
-    const keyName = Object.keys(dataObject); 
+  getData(tableName) {
+    const dataObject = JSON.parse(localStorage.getItem(tableName)) || {};
 
-    return [dataObject, keyName];
+    return [dataObject, Object.keys(dataObject)];
   }
 
-  setData(data, tableName) {  
+  setData(data, tableName) {
     let isNeedReg = false;
-    const [dataObject, keyName] = this.getData(tableName);
 
-    if (keyName.includes(data.email)) {
+    console.log(this.getData(tableName));
+    let [dataObject, keyName] = this.getData(tableName);
+
+    if (keyName && keyName.includes(data.email)) {
       isNeedReg = false;
     } else {
       isNeedReg = true;
-      dataObject[`${data.email}`] = {password: `${data.password}`};
-      localStorage.setItem(`${tableName}`, JSON.stringify(dataObject));    
+      dataObject[`${data.email}`] = { password: `${data.password}` };
+      localStorage.setItem(`${tableName}`, JSON.stringify(dataObject));
     }
+
     return isNeedReg;
   }
 
@@ -35,9 +35,10 @@ export class DataLayer {
     let isChecked = false;
     const [dataObject, keyName] = this.getData(tableName);
 
-    if(keyName.includes(data.email)) {
-      isChecked = (dataObject[`${data.email}`].password === data.password) ? true : false;
-    }   
+    if (keyName && keyName.includes(data.email)) {
+      isChecked =
+        dataObject[`${data.email}`].password === data.password ? true : false;
+    }
     return isChecked;
   }
 }

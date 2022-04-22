@@ -1,5 +1,5 @@
 import { Form } from "./Form.js";
-import { CloseModal } from "./closeModal.js";
+import { PopUp } from "./PopUp.js";
 import { Error } from "./Error.js";
 import { DataLayer } from "./DataLayer.js";
 
@@ -10,7 +10,7 @@ export class LoginForm extends Form {
     this.toggleWrapper = document.querySelector('.toggle-wrapper');
     this.toggleButton = this.toggleWrapper.querySelector('.check');
     this.toggleText = this.toggleWrapper.querySelector('label');
-    this.toggleButon.addEventListener('click', () => this.handleToggleClick());
+    this.toggleButton.addEventListener('click', () => this.handleToggleClick());
   }
 
   handleSubmitForm(event) {
@@ -20,8 +20,8 @@ export class LoginForm extends Form {
     const isChecked = dataBase.checkData(this.data, this.keyName);
 
     if (isChecked) {
-      const closeModal = new CloseModal(this.form.closest('.modal'));
-      closeModal.closeForm();
+      const closeModal = new PopUp();
+      closeModal.closeForm(this.form.closest('.modal'));
       this.container.innerHTML = `<h2>Hello! My dear ${this.data.email}!</h2>`;
     } else {
       if(!this.form.querySelector('.top')) {
