@@ -1,12 +1,11 @@
-import { LoginForm } from "./src/LoginForm.js";
+import { LoginForm } from "./src/forms/LoginForm.js";
 import { PopUp } from "./src/PopUp.js";
-import { RegistrartionForm } from "./src/RegistrationForm.js";
+import { RegistrartionForm } from "./src/forms/RegistrationForm.js";
 
 const buttonLogin = document.querySelector(".login");
 const buttonRegistration = document.querySelector(".registation");
 
 const regData = ["email", "password"];
-const editData = ["sex", "name", "birth", "number"];
 const tableName = "users";
 
 const loginForm = new LoginForm(".modal-content__login", tableName, regData);

@@ -12,7 +12,6 @@ export class DataLayer {
     localStorage.removeItem(tableName);
   }
 
-
   getData(tableName) {
     const dataObject = JSON.parse(localStorage.getItem(tableName)) || {};
 
@@ -31,7 +30,6 @@ export class DataLayer {
       dataObject[`${data.email}`] = { password: `${data.password}` };
       localStorage.setItem(`${tableName}`, JSON.stringify(dataObject));
     }
-
     return isNeedReg;
   }
 
@@ -51,7 +49,7 @@ export class DataLayer {
       .filter((item) => item[0] !== id)
       .reduce((acc, [email, value]) => ({ ...acc, [email]: value }), {});
 
-    this.updateData(newDataBase, tableName); 
+    this.updateData(newDataBase, tableName);
   }
 
   updateData(data, tableName) {
@@ -61,24 +59,11 @@ export class DataLayer {
   setNewParams(data, tableName, selectedEmail) {
     const [dataObject, keyName] = this.getData(tableName);
 
-    const arrayOfData = Object.entries(dataObject).map((item) =>
-      item[0] === selectedEmail 
-        ? [item[0], Object.assign(item[1], data)] 
-        : item
-    );
+    const newDataBase = {
+      ...dataObject,
+      [selectedEmail]: Object.assign(dataObject[`${selectedEmail}`], data),
+    };
 
-    const newDataBase = arrayOfData.reduce((acc, [email, value]) => ({...acc, [email]: value }), {});
-   
-    this.updateData(newDataBase, tableName)
-
-
-    // const updateDataObject = {
-    //   ...dataObject,
-    //   selectedEmail: Object.assign(dataObject[`${selectedEmail}`], this.data),
-    // }
-
-    // console.log(updateDataObject);
+    this.updateData(newDataBase, tableName);
   }
-
- 
 }

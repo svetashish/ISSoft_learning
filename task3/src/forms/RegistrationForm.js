@@ -1,8 +1,8 @@
 import { Form } from "./Form.js";
-import { Error } from "./Error.js";
-import { DataLayer } from "./DataLayer.js";
-import { PopUp } from "./PopUp.js";
-import { compareElements } from "./helpers/compareElements.js";
+import { Error } from "../Error.js";
+import { DataLayer } from "../DataLayer.js";
+import { PopUp } from "../PopUp.js";
+import { compareElements } from "../helpers/compareElements.js";
 
 export class RegistrartionForm extends Form {
   constructor(selector, tableName, regData) {
@@ -17,8 +17,10 @@ export class RegistrartionForm extends Form {
     if (compareElements(arrayOfPasswords)) {
       const dataBase = new DataLayer();
       const isReg = dataBase.setData(this.data, this.keyName);
+      
 
       if (isReg) {
+       
         const closeModal = new PopUp();
         closeModal.closeForm(this.form.closest(".modal"));
         document
@@ -43,6 +45,5 @@ export class RegistrartionForm extends Form {
         this.form.querySelector("h3").after(errorMessage.addErrorToForm());
       }
     }
-    this.buttonSubmit.disabled = super.disabledButton();
   }
 }

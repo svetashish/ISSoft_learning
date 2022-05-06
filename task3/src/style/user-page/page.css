@@ -9,8 +9,28 @@ nav {
 .user {
   display: flex;
   align-items: center;
+  margin: 10px 0;
 }
 
-.user-name {
- width: 200px;
+.user_info {
+ width: 250px;
+ padding: 10px 0;
+}
+
+.user_line-wrapper {
+  font-size: 12px;
+  display: flex;
+  gap: 20px;
+  margin-left: 20px;
+}
+.user_line-wrapper div:first-child{
+  width: 30%;
+}
+
+
+
+.user_email {
+  color: #210cb5;
+  font-weight: 600;
+  margin-bottom: 10px;
 }

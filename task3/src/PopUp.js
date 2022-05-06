@@ -1,3 +1,4 @@
+import { removeAttribute } from './helpers/removeAttribute.js'
 export class PopUp {
   container = document.querySelector(".container");
 
@@ -11,30 +12,22 @@ export class PopUp {
   }
 
   openForm(form) {
-    const textAfterReg = document.querySelector(
-      ".wrapper__content .registration"
-    );
-
+    console.log('create edit form');
     form.style.display = "block";
     this.container.style.display = "none";
 
-    if (textAfterReg) {
-      textAfterReg.remove();
-    }
+    removeAttribute( ".wrapper__content .registration")
   }
 
   closeForm(form) {
-    
-    const errors = document.querySelectorAll(".error");
-
     form.style.display = "none";
     this.container.style.display = "flex";
     form.querySelectorAll("input").forEach((input) => {
-      input.value = "";
-      input.style.border = "none";
+      if(input.name !== 'sex'){
+        input.value = "";
+        input.style.border = "none";
+      } 
     });
-    for (let error of errors) {
-      error.remove();
-    }
+    removeAttribute(".error")
   }
 }

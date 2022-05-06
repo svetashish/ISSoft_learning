@@ -1,5 +1,6 @@
-import { Error } from "./Error.js";
-import { PopUp } from "./PopUp.js";
+import { Error } from "../Error.js";
+import { removeAttribute } from "../helpers/removeAttribute.js";
+import { PopUp } from "../PopUp.js";
 
 export class Form {
   constructor(selector, tableName, fields) {
@@ -9,16 +10,6 @@ export class Form {
     this.isSubmit = false;
     this.form = document.querySelector(selector);
     this.formElements = Array.from(this.form.elements);
-
-    this.form.addEventListener("submit", (event) =>
-      this.handleSubmitForm(event)
-    );
-    this.form.addEventListener("change", ({ target }) =>
-      this.handleChangeInput(target)
-    );
-    this.form.addEventListener("input", ({ target }) =>
-      this.handleInput(target)
-    );
     this.inputArray = this.formElements.filter(
       (element) => element.tagName === "INPUT"
     );
@@ -29,16 +20,20 @@ export class Form {
       (element) => element.type === "submit"
     );
     this.buttonClose = this.form.querySelector(".close");
-    this.buttonClose.addEventListener("click", (event) =>
-      this.handleClose(event)
-    );
-    window.addEventListener("click", (event) => this.handleClose(event));
+    this.setAddEventListener();
   }
 
-  //TODO объединение eventListeners ?????
-  // setAddEventListener(element, eventName, callBack){
-  //   element.addEventListener(eventName, callBack);
-  // }
+  setAddEventListener() {
+    this.form.addEventListener("submit", this.handleSubmitForm.bind(this));
+    this.form.addEventListener("change", ({ target }) =>
+      this.handleChangeInput(target)
+    );
+    this.form.addEventListener("input", ({ target }) =>
+      this.handleInput(target)
+    );
+    this.buttonClose.addEventListener("click", this.handleClose.bind(this));
+    window.addEventListener("click", this.handleClose.bind(this));
+  }
 
   handleSubmitForm(event) {
     event.preventDefault();
@@ -51,31 +46,21 @@ export class Form {
       const inputReg = target.getAttribute("data-reg");
       const reg = new RegExp(inputReg);
 
-      const errors = target
-        .closest(".message-for-error")
-        .querySelectorAll(".error");
-      for (let error of errors) {
-        error.remove();
-      }
-
       if (!reg.test(inputValue)) {
         target.style.border = "1px solid red";
         const errorMessage = new Error("Incorrect format entering data", true);
         target.closest("div").after(errorMessage.addErrorToForm());
+        this.buttonSubmit.disabled = true;
       }
     }
-    this.data = this.setInitialParametrs(this.initialParams);
-
-    console.log(this.data);
+    this.data = this.setInitialParameters(this.initialParams);
   }
 
-  setInitialParametrs(params) {
+  setInitialParameters(params) {
     return params.reduce((acc, item) => {
       const couterElements = this.inputArray.filter(
         (element) => element.name == item
       );
-      console.log(couterElements);
-
       if (couterElements.length === 1) {
         return {
           ...acc,
@@ -84,24 +69,22 @@ export class Form {
       } else {
         return {
           ...acc,
-          [item]: couterElements.find((element) => element.checked === true).value,
+          [item]: couterElements.find((element) => element.checked === true)
+            .value,
         };
       }
     }, {});
   }
 
   handleInput(target) {
-    this.buttonSubmit.disabled = false;
-
     if (this.isSubmit)
       this.inputArray.forEach((element) => (element.style.border = "#000"));
 
-    if (this.form.querySelectorAll(".top").length !== 0)
-      this.form.querySelector(".top").remove();
+    removeAttribute(".top", this.form);
 
-    if (target.closest(".message-for-error").querySelector(".error")) {
-      target.closest(".message-for-error").querySelector(".error").remove();
+    if (removeAttribute(".error", target.closest(".message-for-error"))) {
       target.style.border = "#000";
+      this.buttonSubmit.disabled = false;
     }
   }
 
@@ -113,20 +96,8 @@ export class Form {
       event.target === this.buttonClose
     ) {
       const closeModal = new PopUp();
-      closeModal.closeForm(this.form.closest(".modal"));  
-      
-    // TODO ничего не происходит 
-
-      // this.form.removeEventListener("submit", (event) =>
-      // this.handleSubmitForm(event))
- 
+      closeModal.closeForm(this.form.closest(".modal"));
       console.log("зашли сюда");
     }
-  }
-
-  disabledButton() {
-    const hasError =
-      this.form.querySelectorAll(".error").length == 0 ? false : true;
-    return hasError;
   }
 }

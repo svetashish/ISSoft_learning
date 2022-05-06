@@ -1,9 +1,7 @@
 import { Form } from "./Form.js";
-import { PopUp } from "./PopUp.js";
-import { Error } from "./Error.js";
-import { DataLayer } from "./DataLayer.js";
-import { EditForm } from "./EditForm.js";
-import { Page } from "./Page.js";
+import { PopUp } from "../PopUp.js";
+import { Error } from "../Error.js";
+import { DataLayer } from "../DataLayer.js";
 
 export class LoginForm extends Form {
   constructor(selector, tableName, regData) {
@@ -20,14 +18,15 @@ export class LoginForm extends Form {
 
     const dataBase = new DataLayer();
     const isChecked = dataBase.checkData(this.data, this.keyName);
-
     
     if (isChecked) {
       const closeModal = new PopUp();
       closeModal.closeForm(this.form.closest(".modal"));
      
       window.location.href = `http://127.0.0.1:5500/issoft/task3/user.html`;
+      // dataBase.deleteTableOfData('token');
       dataBase.setData(this.data, 'token');
+
     } else {
       if (!this.form.querySelector(".top")) {
         const errorMessage = new Error(
