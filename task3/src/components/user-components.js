@@ -10,10 +10,10 @@ export const UserComponent = {
 
     const script = document.createElement("script");
     // script.setAttribute("type", "module");
-    script.setAttribute("src", './user.js');
+    script.setAttribute("src", '../build/users.js');
     script.setAttribute("id", "added_script");
     script.setAttribute("data-script", true);
-    document.querySelector("head").append(script);
+    document.getElementsByTagName("body")[0].append(script);
     
 },
   // script: () => { 

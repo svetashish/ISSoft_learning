@@ -1,7 +1,7 @@
 import { Form } from "./Form.js";
-import { PopUp } from "../PopUp.js";
-import { Error } from "../Error.js";
-import { DataLayer } from "../DataLayer.js";
+import { PopUp } from "../common-classes/PopUp.js";
+import { Error } from "../common-classes/Error.js";
+import { DataLayer } from "../common-classes/DataLayer.js";
 
 export class LoginForm extends Form {
   constructor(selector, tableName, regData) {

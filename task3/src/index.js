@@ -1,6 +1,6 @@
-import { LoginForm } from "./src/forms/LoginForm.js";
-import { PopUp } from "./src/PopUp.js";
-import { RegistrartionForm } from "./src/forms/RegistrationForm.js";
+import { LoginForm } from "../src/forms/LoginForm.js";
+import { PopUp } from "../src/common-classes/PopUp.js";
+import { RegistrartionForm } from "../src/forms/RegistrationForm.js";
 
 const buttonLogin = document.querySelector(".login");
 const buttonRegistration = document.querySelector(".registation");

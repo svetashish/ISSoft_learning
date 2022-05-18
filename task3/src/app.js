@@ -28,7 +28,7 @@ const router = () => {
     findComponentByPath(path, routes) || {};  
 
   document.getElementById("app").innerHTML = component.render();
-  // component.script();
+  component.script();
 
 
   

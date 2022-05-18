@@ -1,7 +1,7 @@
 import { EditForm } from "../forms/EditForm.js";
-import { PopUp } from "../PopUp.js";
-import { DataLayer } from "../DataLayer.js";
-import { Error } from "../Error.js";
+import { PopUp } from "../common-classes/PopUp.js";
+import { DataLayer } from "../common-classes/DataLayer.js";
+import { Error } from "../common-classes/Error.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
 import { createElements } from "../helpers/createElements.js";
 import { Page } from "./Page.js";

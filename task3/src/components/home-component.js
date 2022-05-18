@@ -19,9 +19,9 @@ export const HomeComponent = {
 
     const script = document.createElement("script");
     // script.setAttribute("type", "module");
-    script.setAttribute("src", './index.js');
+    script.setAttribute("src", '../build/home.js');
     script.setAttribute("id", "added_script");
-    document.querySelector("head").append(script);  
+    document.getElementsByTagName("body")[0].append(script);  
 
 
 

@@ -1,7 +1,7 @@
 import { Form } from "./Form.js";
-import { Error } from "../Error.js";
-import { DataLayer } from "../DataLayer.js";
-import { PopUp } from "../PopUp.js";
+import { Error } from "../common-classes/Error.js";
+import { DataLayer } from "../common-classes/DataLayer.js";
+import { PopUp } from "../common-classes/PopUp.js";
 import { compareElements } from "../helpers/compareElements.js";
 
 export class RegistrartionForm extends Form {

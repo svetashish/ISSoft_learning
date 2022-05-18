@@ -1,6 +1,6 @@
-import { Error } from "../Error.js";
+import { Error } from "../common-classes/Error.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
-import { PopUp } from "../PopUp.js";
+import { PopUp } from "../common-classes/PopUp.js";
 
 export class Form {
   constructor(selector, tableName, fields) {

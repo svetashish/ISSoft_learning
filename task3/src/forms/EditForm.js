@@ -1,6 +1,6 @@
 import { Form } from "./Form.js";
-import { DataLayer } from "../DataLayer.js";
-import { PopUp } from "../PopUp.js";
+import { DataLayer } from "../common-classes/DataLayer.js";
+import { PopUp } from "../common-classes/PopUp.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
 
 export class EditForm extends Form {
