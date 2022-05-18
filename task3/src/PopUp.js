@@ -12,7 +12,6 @@ export class PopUp {
   }
 
   openForm(form) {
-    console.log('create edit form');
     form.style.display = "block";
     this.container.style.display = "none";
 

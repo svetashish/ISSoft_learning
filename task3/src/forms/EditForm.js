@@ -1,14 +1,13 @@
 import { Form } from "./Form.js";
 import { DataLayer } from "../DataLayer.js";
 import { PopUp } from "../PopUp.js";
+import { removeAttribute } from "../helpers/removeAttribute.js";
 
 export class EditForm extends Form {
-  constructor(selector, tableName, regData) {
+  constructor(selector, tableName, regData, submittedCallback) {
     super(selector, tableName, regData);
     this.email = null;
-    // this.submittedCallback = submittedCallback;
-    // this.editParams = regData;
-    // this.container = document.querySelector(".container");
+    this.submittedCallback = submittedCallback;
   }
 
   handleSubmitForm(event) {
@@ -19,10 +18,12 @@ export class EditForm extends Form {
 
     const closeModal = new PopUp();
     closeModal.closeForm(this.form.closest(".modal"));
-    // if (this.submittedCallback) {
-    //   this.submittedCallback();
-    // }
-    window.location.reload(); //TODO  спросить про перерисовку после submit
+
+    removeAttribute(`[data-user = '${this.email}']`);
+
+    if (this.submittedCallback) {
+      this.submittedCallback(this.email)
+    }
   }
 
   setInitialData(email) {

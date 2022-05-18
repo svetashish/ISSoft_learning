@@ -11,6 +11,11 @@ h3 {
   color: #210cb5;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 footer, header {
   display: flex;
   height: 100px;

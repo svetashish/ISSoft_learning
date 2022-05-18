@@ -32,7 +32,7 @@ export class Form {
       this.handleInput(target)
     );
     this.buttonClose.addEventListener("click", this.handleClose.bind(this));
-    window.addEventListener("click", this.handleClose.bind(this));
+    // window.addEventListener("click", this.handleClose.bind(this));
   }
 
   handleSubmitForm(event) {
@@ -97,7 +97,6 @@ export class Form {
     ) {
       const closeModal = new PopUp();
       closeModal.closeForm(this.form.closest(".modal"));
-      console.log("зашли сюда");
     }
   }
 }

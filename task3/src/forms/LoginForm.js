@@ -18,15 +18,13 @@ export class LoginForm extends Form {
 
     const dataBase = new DataLayer();
     const isChecked = dataBase.checkData(this.data, this.keyName);
-    
+
     if (isChecked) {
       const closeModal = new PopUp();
       closeModal.closeForm(this.form.closest(".modal"));
-     
-      window.location.href = `http://127.0.0.1:5500/issoft/task3/user.html`;
-      // dataBase.deleteTableOfData('token');
-      dataBase.setData(this.data, 'token');
-
+      window.location.hash = '/users'
+      dataBase.setData(this.data, "token", true);
+      
     } else {
       if (!this.form.querySelector(".top")) {
         const errorMessage = new Error(
@@ -35,7 +33,7 @@ export class LoginForm extends Form {
         );
         this.form.querySelector("h3").after(errorMessage.addErrorToForm());
       }
-    }   
+    }
   }
 
   handleInput(target) {

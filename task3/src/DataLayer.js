@@ -18,11 +18,14 @@ export class DataLayer {
     return [dataObject, Object.keys(dataObject)];
   }
 
-
-  setData(data, tableName) {
+  setData(data, tableName, isToken = false) {
     let isNeedReg = false;
-    const [dataObject, keyName] = this.getData(tableName);
+    if (isToken) {
+      this.deleteTableOfData(tableName);
+    }
 
+    const [dataObject, keyName] = this.getData(tableName);
+   
     if (keyName && keyName.includes(data.email)) {
       isNeedReg = false;
     } else {
