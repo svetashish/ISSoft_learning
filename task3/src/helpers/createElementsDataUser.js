@@ -1,4 +1,8 @@
-export const createElements = (blockName, closestElement, initialData) => {
+export const createElementsDataUser = (
+  blockName,
+  closestElement,
+  initialData
+) => {
   const elementWrapper = document.createElement("div");
   elementWrapper.classList.add("user_line-wrapper");
 

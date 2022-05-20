@@ -7,6 +7,7 @@ export class EditForm extends Form {
   constructor(selector, tableName, regData, submittedCallback) {
     super(selector, tableName, regData);
     this.email = null;
+    console.log(this.email, 'this.email edit');
     this.submittedCallback = submittedCallback;
   }
 
@@ -30,6 +31,7 @@ export class EditForm extends Form {
     const dataBase = new DataLayer();
     const [dataObject, keys] = dataBase.getData(this.keyName);
     this.email = email;
+    console.log(this.email, 'this.email edit one more');
 
     this.inputArray.map((input) => {
       const selectedUser = dataObject[`${email}`];

@@ -16,9 +16,7 @@ export class Form {
     this.passwords = this.formElements.filter(
       (element) => element.type === "password"
     );
-    this.buttonSubmit = this.formElements.find(
-      (element) => element.type === "submit"
-    );
+    this.buttonSubmit = this.form.querySelector(".submit");
     this.buttonClose = this.form.querySelector(".close");
     this.setAddEventListener();
   }
@@ -32,7 +30,7 @@ export class Form {
       this.handleInput(target)
     );
     this.buttonClose.addEventListener("click", this.handleClose.bind(this));
-    // window.addEventListener("click", this.handleClose.bind(this));
+    window.addEventListener("click", this.handleClose.bind(this));
   }
 
   handleSubmitForm(event) {

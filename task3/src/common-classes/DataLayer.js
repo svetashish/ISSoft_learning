@@ -47,8 +47,10 @@ export class DataLayer {
     return isChecked;
   }
 
-  deleteData(data, id, tableName) {
-    const newDataBase = Object.entries(data)
+  deleteData(id, tableName) {
+    const [dataObject, keyName] = this.getData(tableName);
+
+    const newDataBase = Object.entries(dataObject)
       .filter((item) => item[0] !== id)
       .reduce((acc, [email, value]) => ({ ...acc, [email]: value }), {});
 

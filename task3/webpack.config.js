@@ -9,5 +9,13 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.join(__dirname, 'build')
+  },
+  module: {
+    rules: [
+      {
+        test: /.css$/,
+        use: ['style-loader','css-loader'] //справа на лево пропускает через лоадеры
+      }
+    ]
   }
 };

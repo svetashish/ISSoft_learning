@@ -1,53 +1,16 @@
+import { removeAttribute } from "../helpers/removeAttribute.js";
+
 export const HomeComponent = {
-  script () { 
-    const check = document.getElementById("added_script");
-    console.log(check);
-    
-    const checkTest = document.getElementById("added_test");
- 
-
-    if(check) {
-      check.remove();
-     
-    }
-
-    if(checkTest) {
-      checkTest.remove();
-     
-    }
-      
+  script() {
+    removeAttribute("#added_script");
 
     const script = document.createElement("script");
-    // script.setAttribute("type", "module");
-    script.setAttribute("src", '../build/home.js');
+    script.setAttribute("src", "../build/home.js");
     script.setAttribute("id", "added_script");
-    document.getElementsByTagName("body")[0].append(script);  
-
-
-
-
-
-    // const scriptNew = document.createElement("script");
-   
-    // scriptNew.setAttribute("src", './new_file.js');
-    // scriptNew.setAttribute("type", "module");
-    // scriptNew.setAttribute("id", "added_test");
-    // scriptNew.setAttribute("data-script", true);
-    // document.querySelector("head").append(scriptNew);  
-
-
-},
-
-//   script: () => { 
-//     return `./index.js`
-    
-    
-// },
-
-  style: "./src/style/srart-page/toggle-button.css",
-  render () {
+    document.querySelector("body").append(script);
+  },
+  render() {
     return `
-    <link rel="stylesheet" href="./src/style/srart-page/toggle-button.css"/>
         <div class="container">
           <button class="login">Login</button>
           <button class="registation">Registation</button>
@@ -129,6 +92,5 @@ export const HomeComponent = {
         </div>
         
     `;
-  }
-} 
-
+  },
+};
