@@ -1,21 +1,28 @@
 import { EditForm } from "../forms/EditForm.js";
-import { PopUp } from "../PopUp.js";
-import { DataLayer } from "../DataLayer.js";
-import { Error } from "../Error.js";
+import { PopUp } from "../common-classes/PopUp.js";
+import { DataLayer } from "../common-classes/DataLayer.js";
+import { Error } from "../common-classes/Error.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
-import { createElements } from "../helpers/createElements.js";
+import { createElementsDataUser } from "../helpers/createElementsDataUser.js";
 import { Page } from "./Page.js";
+import { DeleteConfirmForm } from "../forms/DeleteConfirmForm.js";
 
 export class PageUsers extends Page {
   constructor(keyName, editParams) {
     super(keyName, editParams);
     this.keyName = keyName;
     this.editParams = editParams;
+    this.email = null;
     this.EditForm = new EditForm(
       ".modal-content__edit",
       this.keyName,
       this.editParams,
-      this.renderKey.bind(this),
+      this.renderKey.bind(this)
+    );
+    this.deleteForm = new DeleteConfirmForm(
+      ".modal-content__delete",
+      this.keyName,
+      this.renderData.bind(this),
     );
   }
 
@@ -28,16 +35,15 @@ export class PageUsers extends Page {
   }
 
   renderKey(key) {
-
+    this.email = key;
     const dataBase = new DataLayer();
     const [data, keys] = dataBase.getData(this.keyName);
-  
+
     const user = document.createElement("div");
     user.classList.add("user");
-    user.setAttribute('data-user', `${key}`);
+    user.setAttribute("data-user", `${key}`);
     const userInfo = document.createElement("div");
     userInfo.classList.add("user_info");
-
 
     const userMail = document.createElement("div");
     userMail.classList.add("user_email");
@@ -45,7 +51,9 @@ export class PageUsers extends Page {
     userInfo.append(userMail);
 
     const initialData = Object.entries(data[`${key}`]);
-    this.editParams.map((item) => createElements(item, userInfo, initialData));
+    this.editParams.map((item) =>
+      createElementsDataUser(item, userInfo, initialData)
+    );
 
     const buttonEdit = document.createElement("button");
     buttonEdit.classList.add("btn-edit");
@@ -64,7 +72,9 @@ export class PageUsers extends Page {
   }
 
   handleDeleteClick(dataBase, data, email, keyName) {
+    
     removeAttribute(".error");
+
     const [object, arrayOfToken] = dataBase.getData("token");
 
     if (arrayOfToken.includes(email)) {
@@ -74,9 +84,9 @@ export class PageUsers extends Page {
       );
       document.querySelector("h3").after(errorMessage.addErrorToForm());
     } else {
-      dataBase.deleteData(data, email, keyName);
-
-      this.renderData();
+      this.deleteForm.setEmail(email);
+      const openedPopUpDelete = new PopUp();
+      openedPopUpDelete.openForm(this.deleteForm.form.closest(".modal"));
     }
   }
 

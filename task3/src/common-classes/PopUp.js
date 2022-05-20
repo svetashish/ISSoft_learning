@@ -1,4 +1,4 @@
-import { removeAttribute } from './helpers/removeAttribute.js'
+import { removeAttribute } from '../helpers/removeAttribute.js'
 export class PopUp {
   container = document.querySelector(".container");
 

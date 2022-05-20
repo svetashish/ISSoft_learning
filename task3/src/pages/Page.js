@@ -1,4 +1,4 @@
-import { DataLayer } from "../DataLayer.js";
+import { DataLayer } from "../common-classes/DataLayer.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
 
 

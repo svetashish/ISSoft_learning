@@ -1,4 +1,5 @@
-import { PageUsers } from "./src/pages/Page-users.js";
+import { PageUsers } from "./pages/Page-users.js";
+import "./style/user-page/page.css";
 
 const editFormParams = ["sex", "name", "birth", "number"];
 const renderData = 'users';

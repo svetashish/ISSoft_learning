@@ -1,6 +1,7 @@
-import { LoginForm } from "./src/forms/LoginForm.js";
-import { PopUp } from "./src/PopUp.js";
-import { RegistrartionForm } from "./src/forms/RegistrationForm.js";
+import { LoginForm } from "../src/forms/LoginForm.js";
+import { PopUp } from "../src/common-classes/PopUp.js";
+import { RegistrartionForm } from "../src/forms/RegistrationForm.js";
+import "./style/srart-page/toggle-button.css";
 
 const buttonLogin = document.querySelector(".login");
 const buttonRegistration = document.querySelector(".registation");
@@ -15,12 +16,12 @@ const regForm = new RegistrartionForm(
   regData
 );
 
-const openPopUpLogin = new PopUp();
-const openPopUpReg = new PopUp();
+const openedPopUpLogin = new PopUp();
+const openedPopUpReg = new PopUp();
 
 buttonLogin.addEventListener("click", () =>
-  openPopUpLogin.openForm(loginForm.form.closest(".modal"))
+  openedPopUpLogin.openForm(loginForm.form.closest(".modal"))
 );
 buttonRegistration.addEventListener("click", () =>
-  openPopUpReg.openForm(regForm.form.closest(".modal"))
+  openedPopUpReg.openForm(regForm.form.closest(".modal"))
 );

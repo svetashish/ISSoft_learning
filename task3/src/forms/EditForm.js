@@ -1,12 +1,13 @@
 import { Form } from "./Form.js";
-import { DataLayer } from "../DataLayer.js";
-import { PopUp } from "../PopUp.js";
+import { DataLayer } from "../common-classes/DataLayer.js";
+import { PopUp } from "../common-classes/PopUp.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
 
 export class EditForm extends Form {
   constructor(selector, tableName, regData, submittedCallback) {
     super(selector, tableName, regData);
     this.email = null;
+    console.log(this.email, 'this.email edit');
     this.submittedCallback = submittedCallback;
   }
 
@@ -30,6 +31,7 @@ export class EditForm extends Form {
     const dataBase = new DataLayer();
     const [dataObject, keys] = dataBase.getData(this.keyName);
     this.email = email;
+    console.log(this.email, 'this.email edit one more');
 
     this.inputArray.map((input) => {
       const selectedUser = dataObject[`${email}`];

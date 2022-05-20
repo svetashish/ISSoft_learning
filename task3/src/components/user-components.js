@@ -1,29 +1,16 @@
-export const UserComponent = {
-  script()  { 
-    const check = document.querySelector("#added_script");
-    console.log(check);
+import { removeAttribute } from "../helpers/removeAttribute.js";
 
-    if(check.dataset.script) {
-      check.remove();
-    }
-      
+export const UserComponent = {
+  script() {
+    removeAttribute("#added_script");
 
     const script = document.createElement("script");
-    // script.setAttribute("type", "module");
-    script.setAttribute("src", './user.js');
+    script.setAttribute("src", "../build/users.js");
     script.setAttribute("id", "added_script");
-    script.setAttribute("data-script", true);
-    document.querySelector("head").append(script);
-    
-},
-  // script: () => { 
-  //   debugger
-  //   return `./user.js`   
-  // },
-  style: "./src/style/user-page/page.css",
+    document.querySelector("body").append(script);
+  },
   render() {
     return `
-    <link rel="stylesheet" href= "./src/style/user-page/page.css"/>
         <nav class="back">
           <button type="button" class="back">
             <a href="#">Back</a>
@@ -83,11 +70,20 @@ export const UserComponent = {
               </div>
             </div>
             <div class="submit-section">
-              <button type="submit" class="submit-registration" >Submit</button>
+              <button type="submit" class="submit" >Submit</button>
               <button type="button" class="close">Close</button>
             </div>
           </form>
         </div>
+        <div class="modal">
+          <form class="modal-content modal-content__delete">
+            <h3>Are you sure you want to delete this user?</h3>
+            <div class="submit-section">
+              <button type="submit" class="submit">OK, submit</button>
+              <button type="button" class="close">No, close</button>
+            </div>
+          </form>
+        </div>
     `;
-  }
-} 
+  },
+};
