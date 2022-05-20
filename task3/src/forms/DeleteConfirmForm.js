@@ -6,7 +6,7 @@ export class DeleteConfirmForm {
     this.form = document.querySelector(selector);
     this.keyName = keyName;
     this.email = null;
-    this.callBack = callBack;
+    this.callBackRender = callBack;
     this.buttonClose = this.form.querySelector(".close");
     this.setAddEventListener();
   }
@@ -20,7 +20,7 @@ export class DeleteConfirmForm {
     this.buttonClose.addEventListener("click", this.handleClose.bind(this));
     window.addEventListener("click", this.handleClose.bind(this));
   }
-  
+
   handleSubmitForm(event) {
     event.preventDefault();
 
