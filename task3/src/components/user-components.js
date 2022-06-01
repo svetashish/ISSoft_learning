@@ -5,12 +5,15 @@ export const UserComponent = {
     removeAttribute("#added_script");
 
     const script = document.createElement("script");
-    script.setAttribute("src", "../build/users.js");
+    script.setAttribute("src", "users.js");
     script.setAttribute("id", "added_script");
     document.querySelector("body").append(script);
   },
+
+  style: 'users.css',
   render() {
     return `
+    
         <nav class="back">
           <button type="button" class="back">
             <a href="#">Back</a>

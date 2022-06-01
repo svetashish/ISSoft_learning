@@ -5,12 +5,14 @@ export const HomeComponent = {
     removeAttribute("#added_script");
 
     const script = document.createElement("script");
-    script.setAttribute("src", "../build/home.js");
+    script.setAttribute("src", "home.js");
     script.setAttribute("id", "added_script");
     document.querySelector("body").append(script);
   },
+  style: 'home.css',
   render() {
     return `
+
         <div class="container">
           <button class="login">Login</button>
           <button class="registation">Registation</button>
