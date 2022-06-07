@@ -4,12 +4,13 @@ import { removeAttribute } from "../helpers/removeAttribute.js";
 
 export class Page {
   constructor() {
+    this.dataBase = new DataLayer();
     this.container = document.querySelector(".container");
     this.buttonBack = document.querySelector(".back");
     this.buttonBack.addEventListener("click", () => this.handleBackClick());
     this.wrapperdata;
 
-    window.addEventListener("unload", this.handleUnload.bind(this));
+    window.addEventListener("click", this.handleCheckToken.bind(this));
   }
 
   renderData() {
@@ -21,14 +22,12 @@ export class Page {
   }
 
   handleBackClick() {
-    const dataBase = new DataLayer();
-    dataBase.deleteTableOfData("token");
+    this.dataBase.deleteTableOfData("token");
   }
-
-  handleUnload() {
-    //TODO не понимаю зачем я удаляю таблицу с токеном, эмм
-
-    // const dataBase = new DataLayer();
-    // dataBase.deleteTableOfData("token");
+  
+  handleCheckToken () {
+    if (!this.dataBase.getData('token')[1].length) {
+     window.location.hash ='/'
+    } 
   }
 }

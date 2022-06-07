@@ -1,13 +1,10 @@
 import { removeAttribute } from "../helpers/removeAttribute.js";
+import { createElementScript } from "../helpers/createElementScript.js"
 
 export const HomeComponent = {
   script() {
     removeAttribute("#added_script");
-
-    const script = document.createElement("script");
-    script.setAttribute("src", "home.js");
-    script.setAttribute("id", "added_script");
-    document.querySelector("body").append(script);
+    createElementScript( "home.js", "added_script");
   },
   style: 'home.css',
   render() {

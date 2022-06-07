@@ -16,15 +16,14 @@ export class LoginForm extends Form {
   handleSubmitForm(event) {
     super.handleSubmitForm(event);
 
-    const dataBase = new DataLayer();
-    const isChecked = dataBase.checkData(this.data, this.keyName);
+   
+    const isChecked = this.dataBase.checkData(this.data, this.keyName);
 
     if (isChecked) {
       const closeModal = new PopUp();
       closeModal.closeForm(this.form.closest(".modal"));
-      window.location.hash = '/users'
-      dataBase.setData(this.data, "token", true);
-      
+      window.location.hash = "/users";
+      this.dataBase.setData(this.data, "token", true);
     } else {
       if (!this.form.querySelector(".top")) {
         const errorMessage = new Error(

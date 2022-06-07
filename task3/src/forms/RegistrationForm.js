@@ -15,10 +15,9 @@ export class RegistrartionForm extends Form {
     const arrayOfPasswords = this.passwords.map((element) => element.value);
 
     if (compareElements(arrayOfPasswords)) {
-      const dataBase = new DataLayer();
-      const isReg = dataBase.setData(this.data, this.keyName);
+     
+      const isReg = this.dataBase.setData(this.data, this.keyName);
       
-
       if (isReg) {
        
         const closeModal = new PopUp();

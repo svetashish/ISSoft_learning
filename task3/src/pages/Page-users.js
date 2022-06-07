@@ -17,27 +17,27 @@ export class PageUsers extends Page {
       ".modal-content__edit",
       this.keyName,
       this.editParams,
-      this.renderKey.bind(this)
+      this.renderData.bind(this)
     );
     this.deleteForm = new DeleteConfirmForm(
       ".modal-content__delete",
       this.keyName,
-      this.renderData.bind(this),
+      this.renderData.bind(this)
     );
+    window.addEventListener("storage", this.renderData.bind(this));
   }
 
   renderData() {
     super.renderData();
-    const dataBase = new DataLayer();
-    const [data, keys] = dataBase.getData(this.keyName);
 
+    const [data, keys] = this.dataBase.getData(this.keyName);
     keys.forEach((key) => this.renderKey(key));
   }
 
   renderKey(key) {
     this.email = key;
-    const dataBase = new DataLayer();
-    const [data, keys] = dataBase.getData(this.keyName);
+
+    const [data, keys] = this.dataBase.getData(this.keyName);
 
     const user = document.createElement("div");
     user.classList.add("user");
@@ -62,20 +62,17 @@ export class PageUsers extends Page {
 
     buttonEdit.innerText = "Edit";
     buttonDelete.innerText = "Delete";
-    buttonDelete.addEventListener("click", () =>
-      this.handleDeleteClick(dataBase, data, key, this.keyName)
-    );
+    buttonDelete.addEventListener("click", () => this.handleDeleteClick(key));
     buttonEdit.addEventListener("click", () => this.handleEditClick(key));
 
     user.append(userInfo, buttonEdit, buttonDelete);
     this.wrapperdata.append(user);
   }
 
-  handleDeleteClick(dataBase, data, email, keyName) {
-    
+  handleDeleteClick(email) {
     removeAttribute(".error");
 
-    const [object, arrayOfToken] = dataBase.getData("token");
+    const [object, arrayOfToken] = this.dataBase.getData("token");
 
     if (arrayOfToken.includes(email)) {
       const errorMessage = new Error(
@@ -96,3 +93,4 @@ export class PageUsers extends Page {
     this.EditForm.setInitialData(email);
   }
 }
+  

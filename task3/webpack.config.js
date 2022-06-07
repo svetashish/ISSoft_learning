@@ -24,7 +24,7 @@ module.exports = (env, argv) => {
           use: [
             isProduction ? MiniCssExtractPlugin.loader : "style-loader",
             "css-loader",
-          ], //справа на лево пропускает через лоадеры
+          ], 
         },
       ],
     },

@@ -1,5 +1,4 @@
 import { Form } from "./Form.js";
-import { DataLayer } from "../common-classes/DataLayer.js";
 import { PopUp } from "../common-classes/PopUp.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
 
@@ -13,8 +12,7 @@ export class EditForm extends Form {
   handleSubmitForm(event) {
     super.handleSubmitForm(event);
 
-    const dataBase = new DataLayer();
-    dataBase.setNewParams(this.data, this.keyName, this.email);
+    this.dataBase.setNewParams(this.data, this.keyName, this.email);
 
     const closeModal = new PopUp();
     closeModal.closeForm(this.form.closest(".modal"));
@@ -22,13 +20,12 @@ export class EditForm extends Form {
     removeAttribute(`[data-user = '${this.email}']`);
 
     if (this.submittedCallback) {
-      this.submittedCallback(this.email);
+      this.submittedCallback();
     }
   }
 
   setInitialData(email) {
-    const dataBase = new DataLayer();
-    const [dataObject, keys] = dataBase.getData(this.keyName);
+    const [dataObject, keys] = this.dataBase.getData(this.keyName);
     this.email = email;
 
     this.inputArray.map((input) => {

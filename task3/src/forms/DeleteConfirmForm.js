@@ -7,6 +7,7 @@ export class DeleteConfirmForm {
     this.keyName = keyName;
     this.email = null;
     this.callBackRender = callBack;
+    this.dataBase = new DataLayer();
     this.buttonClose = this.form.querySelector(".close");
     this.setAddEventListener();
   }
@@ -19,18 +20,18 @@ export class DeleteConfirmForm {
     this.form.addEventListener("submit", this.handleSubmitForm.bind(this));
     this.buttonClose.addEventListener("click", this.handleClose.bind(this));
     window.addEventListener("click", this.handleClose.bind(this));
+    window.addEventListener("keydown", this.handleClose.bind(this));
   }
 
   handleSubmitForm(event) {
     event.preventDefault();
 
-    const dataBase = new DataLayer();
-    dataBase.deleteData(this.email, this.keyName);
+    this.dataBase.deleteData(this.email, this.keyName);
 
     const closeModal = new PopUp();
     closeModal.closeForm(this.form.closest(".modal"));
 
-    this.callBack();
+    this.callBackRender();
   }
 
   handleClose(event) {
@@ -38,7 +39,8 @@ export class DeleteConfirmForm {
 
     if (
       event.target === this.form.closest(".modal") ||
-      event.target === this.buttonClose
+      event.target === this.buttonClose ||
+      event.keyCode == 27
     ) {
       const closeModal = new PopUp();
       closeModal.closeForm(this.form.closest(".modal"));

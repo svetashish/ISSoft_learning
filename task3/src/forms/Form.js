@@ -1,6 +1,7 @@
 import { Error } from "../common-classes/Error.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
 import { PopUp } from "../common-classes/PopUp.js";
+import { DataLayer } from "../common-classes/DataLayer.js";
 
 export class Form {
   constructor(selector, tableName, fields) {
@@ -8,6 +9,7 @@ export class Form {
     this.initialParams = fields;
     this.data = {};
     this.isSubmit = false;
+    this.dataBase = new DataLayer();
     this.form = document.querySelector(selector);
     this.formElements = Array.from(this.form.elements);
     this.inputArray = this.formElements.filter(
@@ -31,6 +33,7 @@ export class Form {
     );
     this.buttonClose.addEventListener("click", this.handleClose.bind(this));
     window.addEventListener("click", this.handleClose.bind(this));
+    window.addEventListener("keydown", this.handleClose.bind(this));
   }
 
   handleSubmitForm(event) {
@@ -91,7 +94,8 @@ export class Form {
 
     if (
       event.target === this.form.closest(".modal") ||
-      event.target === this.buttonClose
+      event.target === this.buttonClose ||
+      event.keyCode == 27
     ) {
       const closeModal = new PopUp();
       closeModal.closeForm(this.form.closest(".modal"));

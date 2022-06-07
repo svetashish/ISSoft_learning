@@ -15,7 +15,7 @@ const router = () => {
   const { component = ErrorComponent } =
     findComponentByPath(path, routes) || {};
 
-  document.getElementById("app").innerHTML = component.render();
+  document.getElementById("app").innerHTML = component.render(3);
   component.script();
 };
 
