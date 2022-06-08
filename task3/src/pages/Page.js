@@ -1,7 +1,6 @@
 import { DataLayer } from "../common-classes/DataLayer.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
 
-
 export class Page {
   constructor() {
     this.dataBase = new DataLayer();
@@ -24,10 +23,10 @@ export class Page {
   handleBackClick() {
     this.dataBase.deleteTableOfData("token");
   }
-  
-  handleCheckToken () {
-    if (!this.dataBase.getData('token')[1].length) {
-     window.location.hash ='/'
-    } 
+
+  handleCheckToken() {
+    if (!this.dataBase.getData("token")[1].length) {
+      window.location.hash = "/";
+    }
   }
 }

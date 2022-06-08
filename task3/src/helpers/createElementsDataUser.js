@@ -1,25 +1,16 @@
-export const createElementsDataUser = (
-  blockName,
-  closestElement,
-  initialData
-) => {
-  const elementWrapper = document.createElement("div");
-  elementWrapper.classList.add("user_line-wrapper");
+export const createElementsDataUser = (blockName, initialData) => {
+  const value = initialData.map((item) => {
+      if (item[0] == blockName) {
+        return item[1];
+      }
+    }).join("");
 
-  const elementTitle = document.createElement("div");
-  elementTitle.classList.add(`user_${blockName}-title`);
-  elementTitle.innerText = `${blockName}: `;
-
-  const elementData = document.createElement("div");
-  elementData.classList.add(`user_${blockName}-data`);
-  elementData.setAttribute("data-id", `${blockName}`);
-  elementData.innerText = "no data";
-
-  initialData.map((item) => {
-    if (item[0] == blockName) {
-      elementData.innerText = item[1];
-    }
-  });
-  elementWrapper.append(elementTitle, elementData);
-  closestElement.append(elementWrapper);
+  return `
+    <div class="user_line-wrapper">
+      <div class="user_${blockName}-title">${blockName}: </div>
+      <div class="user_${blockName}-data" data-id="${blockName}">
+        ${value || "no data"}
+      </div>
+    </div>
+  `;
 };

@@ -1,6 +1,5 @@
 import { EditForm } from "../forms/EditForm.js";
 import { PopUp } from "../common-classes/PopUp.js";
-import { DataLayer } from "../common-classes/DataLayer.js";
 import { Error } from "../common-classes/Error.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
 import { createElementsDataUser } from "../helpers/createElementsDataUser.js";
@@ -38,35 +37,29 @@ export class PageUsers extends Page {
     this.email = key;
 
     const [data, keys] = this.dataBase.getData(this.keyName);
-
-    const user = document.createElement("div");
-    user.classList.add("user");
-    user.setAttribute("data-user", `${key}`);
-    const userInfo = document.createElement("div");
-    userInfo.classList.add("user_info");
-
-    const userMail = document.createElement("div");
-    userMail.classList.add("user_email");
-    userMail.append(key);
-    userInfo.append(userMail);
-
     const initialData = Object.entries(data[`${key}`]);
-    this.editParams.map((item) =>
-      createElementsDataUser(item, userInfo, initialData)
-    );
 
-    const buttonEdit = document.createElement("button");
-    buttonEdit.classList.add("btn-edit");
-    const buttonDelete = document.createElement("button");
-    buttonEdit.classList.add("btn-delete");
+    const someStr = this.editParams
+      .map((item) => createElementsDataUser(item, initialData)).join("");
 
-    buttonEdit.innerText = "Edit";
-    buttonDelete.innerText = "Delete";
-    buttonDelete.addEventListener("click", () => this.handleDeleteClick(key));
-    buttonEdit.addEventListener("click", () => this.handleEditClick(key));
+    const user = `
+      <div class="user" data-user="${key}">
+        <div class="user_info">
+          <div class="user_email">${key}</div>
+          ${someStr}
+        </div>
+      <button class="btn-edit" data-edit="${key}">Edit</button>
+      <button class="btn-delete" data-delete="${key}">Delete</button>
+    </div>`;
 
-    user.append(userInfo, buttonEdit, buttonDelete);
-    this.wrapperdata.append(user);
+    this.wrapperdata.insertAdjacentHTML("beforeend", user);
+
+    this.wrapperdata
+      .querySelector(`[data-edit="${key}"]`)
+      .addEventListener("click", this.handleEditClick.bind(this, key));
+    this.wrapperdata
+      .querySelector(`[data-delete="${key}"]`)
+      .addEventListener("click", this.handleDeleteClick.bind(this, key));
   }
 
   handleDeleteClick(email) {
@@ -93,4 +86,3 @@ export class PageUsers extends Page {
     this.EditForm.setInitialData(email);
   }
 }
-  
