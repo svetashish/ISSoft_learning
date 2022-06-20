@@ -12,10 +12,12 @@ const findComponentByPath = (path, routes) =>
 const router = () => {
   const path = parseLocation();
 
-  const { component = ErrorComponent } =
+  const { component = ErrorComponent, guards } =
     findComponentByPath(path, routes) || {};
 
-  document.getElementById("app").innerHTML = component.render(3);
+  guards.map(guard => guard()) 
+  console.log(guards.map(guard => guard()));
+  document.getElementById("app").innerHTML = component.render();
   component.script();
 };
 

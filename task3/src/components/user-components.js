@@ -14,9 +14,9 @@ export const UserComponent = {
   render () {
     return `
         <nav class="back">
-          <button type="button" class="back">
-            <a href="#">Back</a>
-          </button>
+            <a href="#">
+              <button type="button" class="back">Back</button>
+            </a>
         </nav>
         <div class="container container__after-close">
           <h3>Hello, darling!</h3>

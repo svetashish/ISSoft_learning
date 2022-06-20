@@ -1,7 +1,8 @@
 import { HomeComponent } from './components/home-component.js';
 import { UserComponent } from './components/user-components.js';
+import { guard } from './guards/guardTokenExist.js';
 
 export default [
-  { path: "/", component: HomeComponent },
-  { path: "/users", component: UserComponent },
+  { path: "/", component: HomeComponent, guards: [guard] },
+  { path: "/users", component: UserComponent, guards: [guard] },
 ];
