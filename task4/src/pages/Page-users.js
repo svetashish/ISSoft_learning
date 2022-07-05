@@ -34,7 +34,9 @@ export class PageUsers extends Page {
 
     try {
       const responsData = await dataBaseApi.getData();
-      responsData.forEach((item) => this.renderKey(item));
+      responsData
+        .sort((a, b) => (a.id > b.id ? 1 : -1))
+        .forEach((item) => this.renderKey(item));
     } catch (error) {
       console.error(error);
     }

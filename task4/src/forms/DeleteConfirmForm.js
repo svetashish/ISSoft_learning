@@ -1,5 +1,4 @@
 import { PopUp } from "../common-classes/PopUp.js";
-import { DataLayer } from "../common-classes/DataLayer.js";
 import { dataBaseApi } from "../api/api.js";
 
 export class DeleteConfirmForm {
