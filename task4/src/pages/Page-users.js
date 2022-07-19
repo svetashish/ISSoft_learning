@@ -9,20 +9,17 @@ import { DownLoadForm } from "../forms/DownLoadForm.js";
 import { dataBaseApi } from "../api/api.js";
 
 export class PageUsers extends Page {
-  constructor(keyName, editParams) {
-    super(keyName, editParams);
-    this.keyName = keyName;
+  constructor(editParams) {
+    super(); 
     this.editParams = editParams;
     this.email = null;
     this.EditForm = new EditForm(
       ".modal-content__edit",
-      this.keyName,
       this.editParams,
       this.renderData.bind(this)
     );
     this.deleteForm = new DeleteConfirmForm(
       ".modal-content__delete",
-      this.keyName,
       this.renderData.bind(this)
     );
     this.downloadForm = new DownLoadForm(".download-form");
@@ -48,7 +45,7 @@ export class PageUsers extends Page {
       .join("");
 
     const user = `
-      <div style="background: antiquewhite;" class="user" data-user="${data.email}">
+      <div class="user" data-user="${data.email}">
        <div class="user_info">
           <div class="user_email">${data.email}</div>
           ${someStr}
@@ -67,21 +64,25 @@ export class PageUsers extends Page {
       .addEventListener("click", this.handleDeleteClick.bind(this, data.email));
   }
 
-  handleDeleteClick(email) {
+  async handleDeleteClick(email) {
     removeAttribute(".error");
 
-    const [object, arrayOfToken] = this.dataBase.getData("token");
+    try {
+      const ckeckedEmail = await dataBaseApi.checkTokenForDelete();
 
-    if (arrayOfToken.includes(email)) {
-      const errorMessage = new Error(
-        `${email}, you can\'t delete yourself! Please, choose another one.`,
-        false
-      );
-      document.querySelector("h3").after(errorMessage.addErrorToForm());
-    } else {
-      this.deleteForm.setEmail(email);
-      const openedPopUpDelete = new PopUp();
-      openedPopUpDelete.openForm(this.deleteForm.form.closest(".modal"));
+      if (ckeckedEmail.username === email) {
+        const errorMessage = new Error(
+          `${email}, you can\'t delete yourself! Please, choose another one.`,
+          false
+        );
+        document.querySelector("h3").after(errorMessage.addErrorToForm());
+      } else {
+        this.deleteForm.setEmail(email);
+        const openedPopUpDelete = new PopUp();
+        openedPopUpDelete.openForm(this.deleteForm.form.closest(".modal"));
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 

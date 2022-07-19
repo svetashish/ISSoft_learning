@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 const path = require("path");
 
@@ -8,10 +9,18 @@ module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
   
   const config = {
+    resolve: {
+      extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],// other stuff
+      fallback: {
+        "fs": false,
+        "path": require.resolve("path-browserify")
+      }
+    },
     entry: {
       main: "./src/app.js",
-      home: "./src/index.js",
-      users: "./src/user.js",
+      home: "./src/scripts/home.js",
+      users: "./src/scripts/users.js",
+      posts: "./src/scripts/posts.js",
     },
     output: {
       filename: "[name].js",
@@ -29,6 +38,7 @@ module.exports = (env, argv) => {
       ],
     },
     plugins: [
+      new NodePolyfillPlugin(),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: "./src/index.html",

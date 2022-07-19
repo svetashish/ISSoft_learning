@@ -4,8 +4,8 @@ import { removeAttribute } from "../helpers/removeAttribute.js";
 import { dataBaseApi } from "../api/api.js";
 
 export class EditForm extends Form {
-  constructor(selector, tableName, regData, submittedCallback) {
-    super(selector, tableName, regData);
+  constructor(selector, regData, submittedCallback) {
+    super(selector, regData);
     this.email = null;
     this.submittedCallback = submittedCallback;
   }

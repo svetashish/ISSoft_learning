@@ -1,13 +1,11 @@
 import { Form } from "./Form.js";
 import { PopUp } from "../common-classes/PopUp.js";
 import { Error } from "../common-classes/Error.js";
-import { DataLayer } from "../common-classes/DataLayer.js";
 import { dataBaseApi } from "../api/api.js";
 
 export class LoginForm extends Form {
   constructor(selector, tableName, regData) {
     super(selector, tableName, regData);
-    this.dataBase = new DataLayer();
     this.container = document.querySelector(".container");
     this.toggleWrapper = document.querySelector(".toggle-wrapper");
     this.toggleButton = this.toggleWrapper.querySelector(".check");
@@ -19,16 +17,17 @@ export class LoginForm extends Form {
     super.handleSubmitForm(event);
 
     try {
-      const response = await dataBaseApi.checkData({
+      const token = await dataBaseApi.login({
         email: this.inputArray[0].value,
         password: this.inputArray[1].value,
       });
 
-      if (response.length !== 0) {
+      localStorage.setItem('token', JSON.stringify(token));
+    
+      if (token) {
         const closeModal = new PopUp();
         closeModal.closeForm(this.form.closest(".modal"));
-        window.location.hash = "/users";
-        this.dataBase.setData(this.data, "token", true);
+        window.location.hash = "/user/posts";
       } else {
         if (!this.form.querySelector(".top")) {
           const errorMessage = new Error(

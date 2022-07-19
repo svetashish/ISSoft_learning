@@ -73,7 +73,7 @@ button:hover {
   background-position: right center;
 }
 
-input {
+input, textarea {
   display: block;
   width: 80%;
   padding: 0 20px;

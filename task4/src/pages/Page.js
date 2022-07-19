@@ -1,10 +1,7 @@
-import { dataDaseApi } from "../api/api.js";
-import { DataLayer } from "../common-classes/DataLayer.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
 
 export class Page {
   constructor() {
-    this.dataBase = new DataLayer();
     this.container = document.querySelector(".container");
     this.buttonBack = document.querySelector(".back");
     this.buttonBack.addEventListener("click", () => this.handleBackClick());
@@ -17,15 +14,17 @@ export class Page {
     removeAttribute(".wrapper-data");
     this.wrapperdata = document.createElement("div");
     this.wrapperdata.classList.add("wrapper-data");
-    this.container.append(this.wrapperdata); 
+    this.container.append(this.wrapperdata);
   }
 
   handleBackClick() {
-    this.dataBase.deleteTableOfData("token");
+    localStorage.removeItem("token");
   }
 
   handleCheckToken() {
-    if (!this.dataBase.getData("token")[1].length) {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
       window.location.hash = "/";
     }
   }

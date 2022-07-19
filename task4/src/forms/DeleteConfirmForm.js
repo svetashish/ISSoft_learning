@@ -2,9 +2,8 @@ import { PopUp } from "../common-classes/PopUp.js";
 import { dataBaseApi } from "../api/api.js";
 
 export class DeleteConfirmForm {
-  constructor(selector, keyName, callBack) {
+  constructor(selector, callBack) {
     this.form = document.querySelector(selector);
-    this.keyName = keyName;
     this.email = null;
     this.callBackRender = callBack;
     this.buttonClose = this.form.querySelector(".close");

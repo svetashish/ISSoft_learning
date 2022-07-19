@@ -4,6 +4,7 @@ import { PopUp } from "../common-classes/PopUp.js";
 import { compareElements } from "../helpers/compareElements.js";
 import { dataBaseApi } from "../api/api.js";
 
+
 export class RegistrartionForm extends Form {
   constructor(selector, tableName, regData) {
     super(selector, tableName, regData);

@@ -1,4 +1,4 @@
-import { removeAttribute } from '../helpers/removeAttribute.js'
+import { removeAttribute } from "../helpers/removeAttribute.js";
 export class PopUp {
   container = document.querySelector(".container");
 
@@ -13,20 +13,24 @@ export class PopUp {
 
   openForm(form) {
     form.style.display = "block";
-    this.container.style.display = "none";
+    // this.container.style.display = "none";
 
-    removeAttribute( ".wrapper__content .registration")
+    removeAttribute(".wrapper__content .registration");
   }
 
   closeForm(form) {
     form.style.display = "none";
     this.container.style.display = "flex";
     form.querySelectorAll("input").forEach((input) => {
-      if(input.name !== 'sex'){
+      if (input.name !== "sex") {
         input.value = "";
         input.style.border = "none";
-      } 
+      }
+      const textarea = form.querySelector("textarea");
+      if (textarea) {
+        textarea.value = "";
+      }
     });
-    removeAttribute(".error")
+    removeAttribute(".error");
   }
 }

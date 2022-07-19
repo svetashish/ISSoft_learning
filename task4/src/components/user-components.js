@@ -10,7 +10,6 @@ export const UserComponent = {
 
   style: 'users.css',
  
-    // const result = Array.from({length: cancelBtnCounts}).map(() => cancelBtn).join("");
   render () {
     return `
         <nav class="back">

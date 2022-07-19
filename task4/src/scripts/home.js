@@ -1,18 +1,15 @@
-import { LoginForm } from "../src/forms/LoginForm.js";
-import { PopUp } from "../src/common-classes/PopUp.js";
-import { RegistrartionForm } from "../src/forms/RegistrationForm.js";
-import "./style/srart-page/toggle-button.css";
+import { LoginForm } from "../forms/LoginForm.js";
+import { PopUp } from "../common-classes/PopUp.js";
+import { RegistrartionForm } from "../forms/RegistrationForm.js";
+import "../style/srart-page/toggle-button.css";
 
 const buttonLogin = document.querySelector(".login");
 const buttonRegistration = document.querySelector(".registation");
 
 const regData = ["email", "password"];
-const tableName = "users";
-
-const loginForm = new LoginForm(".modal-content__login", tableName, regData);
+const loginForm = new LoginForm(".modal-content__login", regData);
 const regForm = new RegistrartionForm(
   ".modal-content__registration",
-  tableName,
   regData
 );
 

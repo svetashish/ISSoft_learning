@@ -1,11 +1,9 @@
 import { Error } from "../common-classes/Error.js";
 import { removeAttribute } from "../helpers/removeAttribute.js";
 import { PopUp } from "../common-classes/PopUp.js";
-import { DataLayer } from "../common-classes/DataLayer.js";
 
 export class Form {
-  constructor(selector, tableName, fields) {
-    this.keyName = tableName;
+  constructor(selector, fields) {
     this.initialParams = fields;
     this.data = {};
     this.isSubmit = false;
@@ -14,6 +12,10 @@ export class Form {
     this.inputArray = this.formElements.filter(
       (element) => element.tagName === "INPUT"
     );
+    this.textarea = this.formElements.filter(
+      (element) => element.tagName === "TEXTAREA"
+    );
+    this.commonInputArray = [...this.textarea, ...this.inputArray],
     this.passwords = this.formElements.filter(
       (element) => element.type === "password"
     );
@@ -58,13 +60,13 @@ export class Form {
 
   setInitialParameters(params) {
     return params.reduce((acc, item) => {
-      const couterElements = this.inputArray.filter(
+      const couterElements = this.commonInputArray.filter(
         (element) => element.name == item
       );
       if (couterElements.length === 1) {
         return {
           ...acc,
-          [item]: this.inputArray.find((element) => element.name == item).value,
+          [item]: this.commonInputArray.find((element) => element.name == item).value,
         };
       } else {
         return {
