@@ -1,4 +1,5 @@
 import { dataBaseApi } from "../api/api";
+import { PopUp } from "../common-classes/PopUp.js";
 import { Form } from "./Form";
 
 export class PostForm extends Form {
@@ -20,7 +21,10 @@ export class PostForm extends Form {
         ...this.data,
         email: responsData.email,
       });
-      
+
+      const closeModal = new PopUp();
+      closeModal.closeForm(this.form.closest(".modal"));
+
       if (this.submittedCallback) {
         this.submittedCallback();
       }

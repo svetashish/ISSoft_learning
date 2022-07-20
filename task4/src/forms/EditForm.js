@@ -18,17 +18,17 @@ export class EditForm extends Form {
         email: this.email,
         ...this.data,
       });
+
+      const closeModal = new PopUp();
+      closeModal.closeForm(this.form.closest(".modal"));
+
+      removeAttribute(`[data-user = '${this.email}']`);
+
+      if (this.submittedCallback) {
+        this.submittedCallback();
+      }
     } catch (error) {
       console.error(error);
-    }
-
-    const closeModal = new PopUp();
-    closeModal.closeForm(this.form.closest(".modal"));
-
-    removeAttribute(`[data-user = '${this.email}']`);
-
-    if (this.submittedCallback) {
-      this.submittedCallback();
     }
   }
 
